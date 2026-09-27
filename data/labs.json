@@ -1,0 +1,4142 @@
+[
+  {
+    "lab": "1.1",
+    "title": "Tcpdump",
+    "section": "SEC401.1",
+    "domain": "Packet Analysis",
+    "steps": [
+      {
+        "q": "You need to reduce a large capture to traffic involving one host. Which concept should you use first?",
+        "choices": [
+          "BPF filtering",
+          "Password cracking",
+          "Group Policy",
+          "File encryption"
+        ],
+        "answer": 0,
+        "why": "Tcpdump uses Berkeley Packet Filter syntax to narrow packet data.",
+        "cue": "tcpdump BPF",
+        "id": "lab-1.1-0",
+        "section": "SEC401.1",
+        "domain": "Packet Analysis",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "tcpdump BPF"
+        ],
+        "bookCue": {
+          "section": "SEC401.1",
+          "topic": "Packet Analysis",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "packet-analysis",
+          "lab"
+        ]
+      },
+      {
+        "q": "What is the best reason to learn tcpdump syntax rather than memorize one command?",
+        "choices": [
+          "Packet-analysis questions change, so you must build filters for the evidence you need",
+          "tcpdump only has one option",
+          "Filters are unsupported",
+          "Syntax replaces networking knowledge"
+        ],
+        "answer": 0,
+        "why": "The lab emphasizes using help and syntax to adapt packet capture and filtering to the investigative question.",
+        "cue": "tcpdump syntax",
+        "id": "lab-1.1-1",
+        "section": "SEC401.1",
+        "domain": "Packet Analysis",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "tcpdump syntax"
+        ],
+        "bookCue": {
+          "section": "SEC401.1",
+          "topic": "Packet Analysis",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "packet-analysis",
+          "lab"
+        ]
+      },
+      {
+        "q": "You have a pcap from a compromised web server. What can tcpdump help you inspect?",
+        "choices": [
+          "Layer 3/4 headers and packet contents",
+          "Windows Group Policy only",
+          "NTFS DACLs only",
+          "Cloud IAM roles only"
+        ],
+        "answer": 0,
+        "why": "Tcpdump can read saved captures and expose network and transport-layer information.",
+        "cue": "pcap analysis",
+        "id": "lab-1.1-2",
+        "section": "SEC401.1",
+        "domain": "Packet Analysis",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "pcap analysis"
+        ],
+        "bookCue": {
+          "section": "SEC401.1",
+          "topic": "Packet Analysis",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "packet-analysis",
+          "lab"
+        ]
+      },
+      {
+        "q": "What is the lab-level takeaway?",
+        "choices": [
+          "Use packet filters to turn a large capture into targeted evidence",
+          "Always capture everything forever",
+          "Packets never contain payload data",
+          "Flow logs replace packet analysis"
+        ],
+        "answer": 0,
+        "why": "The operational skill is isolating relevant traffic from a large packet set.",
+        "cue": "packet filtering",
+        "id": "lab-1.1-3",
+        "section": "SEC401.1",
+        "domain": "Packet Analysis",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "packet filtering"
+        ],
+        "bookCue": {
+          "section": "SEC401.1",
+          "topic": "Packet Analysis",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "packet-analysis",
+          "lab"
+        ]
+      },
+      {
+        "id": "lab-1.1-4",
+        "section": "SEC401.1",
+        "domain": "Packet Analysis",
+        "q": "Capture excerpt: 10.0.0.4.53000 > 198.51.100.2.443 Flags [S], then the same [S] three times. What should you investigate first?",
+        "choices": [
+          "A successful file upload",
+          "A completed authenticated HTTPS session",
+          "A confirmed TLS certificate mismatch",
+          "Why the SYN receives no observed reply"
+        ],
+        "answer": 3,
+        "why": "Repeated SYNs suggest a missing response; filtering, routing, endpoint state, and capture position are possibilities.",
+        "cue": "SYN retry triage",
+        "origin": "v0.3 original",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "SYN retry triage"
+        ],
+        "bookCue": {
+          "section": "SEC401.1",
+          "topic": "Packet Analysis",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "packet-analysis",
+          "lab"
+        ]
+      },
+      {
+        "id": "lab-1.1-5",
+        "section": "SEC401.1",
+        "domain": "Packet Analysis",
+        "q": "Your capture command used 'tcp port 443' but the browser used HTTP/3. Why might the transaction be absent?",
+        "choices": [
+          "All browsers use ICMP for web traffic",
+          "The filter decrypts and discards TLS",
+          "HTTP/3 commonly uses UDP rather than TCP",
+          "HTTP/3 cannot carry web content"
+        ],
+        "answer": 2,
+        "why": "QUIC-based HTTP/3 uses UDP; a TCP-only capture excludes it.",
+        "cue": "Capture filter coverage",
+        "origin": "v0.3 original",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "Capture filter coverage"
+        ],
+        "bookCue": {
+          "section": "SEC401.1",
+          "topic": "Packet Analysis",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "packet-analysis",
+          "lab"
+        ]
+      }
+    ],
+    "description": "Independent guided workflow practice; not an official SANS lab or a live virtual machine."
+  },
+  {
+    "lab": "1.2",
+    "title": "Wireshark",
+    "section": "SEC401.1",
+    "domain": "Packet Analysis",
+    "steps": [
+      {
+        "q": "Which Wireshark capability helps reconstruct an application conversation?",
+        "choices": [
+          "Follow TCP Stream",
+          "Group Policy Results",
+          "Get-FileHash",
+          "chmod"
+        ],
+        "answer": 0,
+        "why": "Following a stream reassembles the selected TCP conversation for analysis.",
+        "cue": "Wireshark follow stream",
+        "id": "lab-1.2-0",
+        "section": "SEC401.1",
+        "domain": "Packet Analysis",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "Wireshark follow stream"
+        ],
+        "bookCue": {
+          "section": "SEC401.1",
+          "topic": "Packet Analysis",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "packet-analysis",
+          "lab"
+        ]
+      },
+      {
+        "q": "Which filter is used after traffic is already captured?",
+        "choices": [
+          "Display filter",
+          "Capture ACL",
+          "Router route",
+          "DACL"
+        ],
+        "answer": 0,
+        "why": "Wireshark display filters narrow what is shown from existing evidence.",
+        "cue": "Wireshark display filter",
+        "id": "lab-1.2-1",
+        "section": "SEC401.1",
+        "domain": "Packet Analysis",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "Wireshark display filter"
+        ],
+        "bookCue": {
+          "section": "SEC401.1",
+          "topic": "Packet Analysis",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "packet-analysis",
+          "lab"
+        ]
+      },
+      {
+        "q": "A capture includes an HTTP file transfer. Which capability may recover the transferred object?",
+        "choices": [
+          "Object extraction",
+          "RBAC assignment",
+          "Password salting",
+          "VLAN tagging"
+        ],
+        "answer": 0,
+        "why": "Wireshark can extract objects from supported protocols when the capture contains the necessary data.",
+        "cue": "Wireshark object extraction",
+        "id": "lab-1.2-2",
+        "section": "SEC401.1",
+        "domain": "Packet Analysis",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "Wireshark object extraction"
+        ],
+        "bookCue": {
+          "section": "SEC401.1",
+          "topic": "Packet Analysis",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "packet-analysis",
+          "lab"
+        ]
+      },
+      {
+        "q": "What is the central lesson of the lab?",
+        "choices": [
+          "Use protocol dissection and statistics to move from traffic volume to meaningful conversations",
+          "GUI tools make protocol knowledge unnecessary",
+          "Wireshark blocks attacks automatically",
+          "Every capture contains full decrypted TLS content"
+        ],
+        "answer": 0,
+        "why": "Wireshark is powerful because it organizes and decodes packet evidence, but analysts still need protocol knowledge.",
+        "cue": "Wireshark analysis",
+        "id": "lab-1.2-3",
+        "section": "SEC401.1",
+        "domain": "Packet Analysis",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "Wireshark analysis"
+        ],
+        "bookCue": {
+          "section": "SEC401.1",
+          "topic": "Packet Analysis",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "packet-analysis",
+          "lab"
+        ]
+      },
+      {
+        "id": "lab-1.2-4",
+        "section": "SEC401.1",
+        "domain": "Packet Analysis",
+        "q": "Trace: client SYN, server SYN-ACK, client ACK, then client TLS ClientHello. Which event has not yet been demonstrated?",
+        "choices": [
+          "A server TCP response",
+          "A TLS handshake attempt",
+          "TCP connection establishment",
+          "Successful application authentication"
+        ],
+        "answer": 3,
+        "why": "The trace establishes transport and starts TLS, but shows no completed TLS or application authentication.",
+        "cue": "Protocol evidence boundaries",
+        "origin": "v0.3 original",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "Protocol evidence boundaries"
+        ],
+        "bookCue": {
+          "section": "SEC401.1",
+          "topic": "Packet Analysis",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "packet-analysis",
+          "lab"
+        ]
+      },
+      {
+        "id": "lab-1.2-5",
+        "section": "SEC401.1",
+        "domain": "Packet Analysis",
+        "q": "A display filter hides packets in a saved capture. What happens when the filter is cleared?",
+        "choices": [
+          "The router retransmits the entire capture",
+          "Previously hidden captured packets become visible again",
+          "The packets are permanently erased",
+          "The capture file is decrypted"
+        ],
+        "answer": 1,
+        "why": "Display filters change the view rather than the captured evidence.",
+        "cue": "Non-destructive display filtering",
+        "origin": "v0.3 original",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "Non-destructive display filtering"
+        ],
+        "bookCue": {
+          "section": "SEC401.1",
+          "topic": "Packet Analysis",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "packet-analysis",
+          "lab"
+        ]
+      }
+    ],
+    "description": "Independent guided workflow practice; not an official SANS lab or a live virtual machine."
+  },
+  {
+    "lab": "1.3",
+    "title": "AWS VPC Flow Logs",
+    "section": "SEC401.1",
+    "domain": "Cloud",
+    "steps": [
+      {
+        "q": "What kind of evidence do VPC Flow Logs primarily provide?",
+        "choices": [
+          "Communication metadata",
+          "Full memory images",
+          "Complete application payloads",
+          "NTFS permissions"
+        ],
+        "answer": 0,
+        "why": "Flow logs summarize connections rather than providing packet payloads.",
+        "cue": "VPC Flow Logs",
+        "id": "lab-1.3-0",
+        "section": "SEC401.1",
+        "domain": "Cloud",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "VPC Flow Logs"
+        ],
+        "bookCue": {
+          "section": "SEC401.1",
+          "topic": "Cloud",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "cloud",
+          "lab"
+        ]
+      },
+      {
+        "q": "Which question is flow data particularly good at answering?",
+        "choices": [
+          "Which hosts made unusual numbers of outbound connections?",
+          "What exact command appeared inside an encrypted TLS session?",
+          "What password is stored in memory?",
+          "Which NTFS ACE denied a file?"
+        ],
+        "answer": 0,
+        "why": "Flow data is excellent for large-scale communication patterns and outlier discovery.",
+        "cue": "flow analysis",
+        "id": "lab-1.3-1",
+        "section": "SEC401.1",
+        "domain": "Cloud",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "flow analysis"
+        ],
+        "bookCue": {
+          "section": "SEC401.1",
+          "topic": "Cloud",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "cloud",
+          "lab"
+        ]
+      },
+      {
+        "q": "Why compare flow-log findings with packet captures?",
+        "choices": [
+          "Each evidence type provides different levels of detail",
+          "They are identical evidence",
+          "Packet captures have no network metadata",
+          "Flow logs contain every payload byte"
+        ],
+        "answer": 0,
+        "why": "Flows provide scale and summaries; pcaps provide packet-level detail.",
+        "cue": "flows vs pcap",
+        "id": "lab-1.3-2",
+        "section": "SEC401.1",
+        "domain": "Cloud",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "flows vs pcap"
+        ],
+        "bookCue": {
+          "section": "SEC401.1",
+          "topic": "Cloud",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "cloud",
+          "lab"
+        ]
+      },
+      {
+        "q": "What mindset does the AI portion of the lab reinforce?",
+        "choices": [
+          "Use AI as an analytical aid but verify conclusions against evidence",
+          "Accept AI conclusions without validation",
+          "Never use command-line tools",
+          "Replace source evidence with summaries"
+        ],
+        "answer": 0,
+        "why": "The lab explicitly challenges AI-assisted analysis and emphasizes verification.",
+        "cue": "AI verification",
+        "id": "lab-1.3-3",
+        "section": "SEC401.1",
+        "domain": "Cloud",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "AI verification"
+        ],
+        "bookCue": {
+          "section": "SEC401.1",
+          "topic": "Cloud",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "cloud",
+          "lab"
+        ]
+      },
+      {
+        "id": "lab-1.3-4",
+        "section": "SEC401.1",
+        "domain": "Cloud",
+        "q": "Synthetic flow record: src=10.0.2.9 dst=198.51.100.8 dstport=443 protocol=6 action=REJECT. What does protocol 6 identify?",
+        "choices": [
+          "ARP",
+          "TCP",
+          "ICMP",
+          "UDP"
+        ],
+        "answer": 1,
+        "why": "The IP protocol number 6 identifies TCP. A port field and an IP protocol field are different namespaces.",
+        "cue": "Flow log protocol numbers",
+        "origin": "v0.3 original",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "Flow log protocol numbers"
+        ],
+        "bookCue": {
+          "section": "SEC401.1",
+          "topic": "Cloud",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "cloud",
+          "lab"
+        ]
+      },
+      {
+        "id": "lab-1.3-5",
+        "section": "SEC401.1",
+        "domain": "Cloud",
+        "q": "A flow record says ACCEPT for an outbound connection. What does this not establish?",
+        "choices": [
+          "That network metadata was recorded",
+          "That the remote application completed the request",
+          "That the logged policy allowed the flow",
+          "That a flow was observed"
+        ],
+        "answer": 1,
+        "why": "A network policy decision is not proof of application success or benign purpose.",
+        "cue": "Flow log inference limits",
+        "origin": "v0.3 original",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "Flow log inference limits"
+        ],
+        "bookCue": {
+          "section": "SEC401.1",
+          "topic": "Cloud",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "cloud",
+          "lab"
+        ]
+      }
+    ],
+    "description": "Independent guided workflow practice; not an official SANS lab or a live virtual machine."
+  },
+  {
+    "lab": "2.1",
+    "title": "Password Auditing",
+    "section": "SEC401.2",
+    "domain": "Identity",
+    "steps": [
+      {
+        "q": "What must commonly happen before an offline password audit can begin?",
+        "choices": [
+          "Extract or convert the protected data into a hash format the cracking tool understands",
+          "Disable all account lockouts",
+          "Open TCP 3389",
+          "Create a VLAN"
+        ],
+        "answer": 0,
+        "why": "The lab uses conversion/extraction utilities before John or Hashcat can test guesses.",
+        "cue": "password hash extraction",
+        "id": "lab-2.1-0",
+        "section": "SEC401.2",
+        "domain": "Identity",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "password hash extraction"
+        ],
+        "bookCue": {
+          "section": "SEC401.2",
+          "topic": "Identity",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "identity",
+          "lab"
+        ]
+      },
+      {
+        "q": "Which two tools are central to the lab?",
+        "choices": [
+          "John the Ripper and Hashcat",
+          "Snort and Zeek",
+          "tcpdump and Wireshark",
+          "chmod and chown"
+        ],
+        "answer": 0,
+        "why": "The lab provides hands-on exposure to John and Hashcat.",
+        "cue": "John Hashcat",
+        "id": "lab-2.1-1",
+        "section": "SEC401.2",
+        "domain": "Identity",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "John Hashcat"
+        ],
+        "bookCue": {
+          "section": "SEC401.2",
+          "topic": "Identity",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "identity",
+          "lab"
+        ]
+      },
+      {
+        "q": "Why does account lockout not stop offline cracking of a copied hash?",
+        "choices": [
+          "The attacker tests guesses locally without contacting the live authentication service",
+          "Hashing disables lockout",
+          "Kerberos ignores passwords",
+          "Salts turn off lockout"
+        ],
+        "answer": 0,
+        "why": "Offline cracking bypasses online rate limiting and lockout mechanisms.",
+        "cue": "offline password cracking",
+        "id": "lab-2.1-2",
+        "section": "SEC401.2",
+        "domain": "Identity",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "offline password cracking"
+        ],
+        "bookCue": {
+          "section": "SEC401.2",
+          "topic": "Identity",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "identity",
+          "lab"
+        ]
+      },
+      {
+        "q": "What should you remember for GSEC?",
+        "choices": [
+          "Hash extraction and password cracking are distinct steps",
+          "A salt makes cracking impossible",
+          "Two passwords are MFA",
+          "Hashes are encrypted passwords"
+        ],
+        "answer": 0,
+        "why": "A tool often must first extract/convert the stored verifier before candidate passwords can be tested.",
+        "cue": "hash extraction vs cracking",
+        "id": "lab-2.1-3",
+        "section": "SEC401.2",
+        "domain": "Identity",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "hash extraction vs cracking"
+        ],
+        "bookCue": {
+          "section": "SEC401.2",
+          "topic": "Identity",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "identity",
+          "lab"
+        ]
+      },
+      {
+        "id": "lab-2.1-4",
+        "section": "SEC401.2",
+        "domain": "Identity",
+        "q": "Two password verifiers use unique salts. Which attack cost is primarily increased across many accounts?",
+        "choices": [
+          "Reading a public username",
+          "Guessing a username's spelling",
+          "Reusing precomputed results for identical passwords",
+          "Trying a single guess against one verifier"
+        ],
+        "answer": 2,
+        "why": "Unique salts force per-salt computation. They do not remove the need for costly password hashing and strong passwords.",
+        "cue": "Salted password audit",
+        "origin": "v0.3 original",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "Salted password audit"
+        ],
+        "bookCue": {
+          "section": "SEC401.2",
+          "topic": "Identity",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "identity",
+          "lab"
+        ]
+      },
+      {
+        "id": "lab-2.1-5",
+        "section": "SEC401.2",
+        "domain": "Identity",
+        "q": "An authorized password audit finds a recovered password. Which report detail is appropriate?",
+        "choices": [
+          "The plaintext password in a public ticket",
+          "The password emailed to all employees",
+          "The password in every dashboard title",
+          "A controlled finding with remediation, without exposing the password broadly"
+        ],
+        "answer": 3,
+        "why": "Treat recovered credentials as sensitive evidence, restrict access, and arrange resets and broader impact review.",
+        "cue": "Credential audit handling",
+        "origin": "v0.3 original",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "Credential audit handling"
+        ],
+        "bookCue": {
+          "section": "SEC401.2",
+          "topic": "Identity",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "identity",
+          "lab"
+        ]
+      }
+    ],
+    "description": "Independent guided workflow practice; not an official SANS lab or a live virtual machine."
+  },
+  {
+    "lab": "2.2",
+    "title": "Data Loss Prevention",
+    "section": "SEC401.2",
+    "domain": "DLP",
+    "steps": [
+      {
+        "q": "Which artifact can reveal who created or handled a document?",
+        "choices": [
+          "Metadata",
+          "TCP sequence number only",
+          "ARP cache only",
+          "VLAN ID only"
+        ],
+        "answer": 0,
+        "why": "Document metadata can expose creator and handling information.",
+        "cue": "document metadata",
+        "id": "lab-2.2-0",
+        "section": "SEC401.2",
+        "domain": "DLP",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "document metadata"
+        ],
+        "bookCue": {
+          "section": "SEC401.2",
+          "topic": "DLP",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "dlp",
+          "lab"
+        ]
+      },
+      {
+        "q": "Which is an example of an overt marker?",
+        "choices": [
+          "Visible classification label or watermark",
+          "Hidden metadata field",
+          "Slack space only",
+          "TCP checksum"
+        ],
+        "answer": 0,
+        "why": "Overt markers are intentionally visible to the user.",
+        "cue": "DLP markers",
+        "id": "lab-2.2-1",
+        "section": "SEC401.2",
+        "domain": "DLP",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "DLP markers"
+        ],
+        "bookCue": {
+          "section": "SEC401.2",
+          "topic": "DLP",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "dlp",
+          "lab"
+        ]
+      },
+      {
+        "q": "Why inspect hidden/contextual markers as well as visible labels?",
+        "choices": [
+          "Sensitive files may contain provenance clues not obvious on the page",
+          "Visible labels are cryptographic signatures",
+          "Hidden data cannot exist in documents",
+          "Only packet data matters"
+        ],
+        "answer": 0,
+        "why": "DLP and investigations may rely on metadata, hidden content, and contextual clues.",
+        "cue": "metadata watermark",
+        "id": "lab-2.2-2",
+        "section": "SEC401.2",
+        "domain": "DLP",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "metadata watermark"
+        ],
+        "bookCue": {
+          "section": "SEC401.2",
+          "topic": "DLP",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "dlp",
+          "lab"
+        ]
+      },
+      {
+        "q": "In Data Loss Prevention, which principle should guide your workflow?",
+        "choices": [
+          "Data leakage analysis requires understanding content, context, metadata, and markings",
+          "DLP is only a firewall function",
+          "Classification never affects controls",
+          "USB devices cannot leak data"
+        ],
+        "answer": 0,
+        "why": "DLP is broader than keyword blocking; context and provenance matter.",
+        "cue": "DLP analysis",
+        "id": "lab-2.2-3",
+        "section": "SEC401.2",
+        "domain": "DLP",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "DLP analysis"
+        ],
+        "bookCue": {
+          "section": "SEC401.2",
+          "topic": "DLP",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "dlp",
+          "lab"
+        ]
+      },
+      {
+        "id": "lab-2.2-4",
+        "section": "SEC401.2",
+        "domain": "DLP",
+        "q": "Synthetic DLP event: action=blocked rule=customer-records destination=personal-storage. What should be checked next?",
+        "choices": [
+          "Whether every network port should be opened",
+          "Whether all staff should be locked out",
+          "Whether the rule's name proves a breach",
+          "Whether the content and business context support the match"
+        ],
+        "answer": 3,
+        "why": "Validate the classification, user context, destination, and action outcome before escalation or tuning.",
+        "cue": "DLP alert triage",
+        "origin": "v0.3 original",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "DLP alert triage"
+        ],
+        "bookCue": {
+          "section": "SEC401.2",
+          "topic": "DLP",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "dlp",
+          "lab"
+        ]
+      },
+      {
+        "id": "lab-2.2-5",
+        "section": "SEC401.2",
+        "domain": "DLP",
+        "q": "A DLP test uses a real customer database copied to a personal account. What is a safer test design?",
+        "choices": [
+          "Disable logging to protect the tester",
+          "Publish the database as a checksum",
+          "Remove all destination restrictions",
+          "Use approved synthetic data and controlled destinations"
+        ],
+        "answer": 3,
+        "why": "Synthetic fixtures can exercise detection without creating the data exposure the control is intended to prevent.",
+        "cue": "DLP test fixtures",
+        "origin": "v0.3 original",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "DLP test fixtures"
+        ],
+        "bookCue": {
+          "section": "SEC401.2",
+          "topic": "DLP",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "dlp",
+          "lab"
+        ]
+      }
+    ],
+    "description": "Independent guided workflow practice; not an official SANS lab or a live virtual machine."
+  },
+  {
+    "lab": "2.3",
+    "title": "Mobile Device Backup Recovery",
+    "section": "SEC401.2",
+    "domain": "Mobile",
+    "steps": [
+      {
+        "q": "Why is an unencrypted mobile backup valuable to an investigator?",
+        "choices": [
+          "It may expose messages, files, app data, and other artifacts without live-device interaction",
+          "It contains no user data",
+          "It automatically proves guilt",
+          "It replaces hashing"
+        ],
+        "answer": 0,
+        "why": "Backups can preserve a wide range of forensic artifacts.",
+        "cue": "mobile backup",
+        "id": "lab-2.3-0",
+        "section": "SEC401.2",
+        "domain": "Mobile",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "mobile backup"
+        ],
+        "bookCue": {
+          "section": "SEC401.2",
+          "topic": "Mobile",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "mobile",
+          "lab"
+        ]
+      },
+      {
+        "q": "What changes if the backup is encrypted?",
+        "choices": [
+          "You need the decryption credential and a tool capable of using it",
+          "Encryption has no effect",
+          "The backup becomes a packet capture",
+          "Only the filename is encrypted"
+        ],
+        "answer": 0,
+        "why": "Encrypted backups require recovery of the password/key and compatible tooling.",
+        "cue": "encrypted backup",
+        "id": "lab-2.3-1",
+        "section": "SEC401.2",
+        "domain": "Mobile",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "encrypted backup"
+        ],
+        "bookCue": {
+          "section": "SEC401.2",
+          "topic": "Mobile",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "mobile",
+          "lab"
+        ]
+      },
+      {
+        "q": "Why hash a recovered company document?",
+        "choices": [
+          "To compare it reliably with known copies and establish integrity",
+          "To decrypt the phone",
+          "To assign a VLAN",
+          "To create an SID"
+        ],
+        "answer": 0,
+        "why": "Cryptographic hashes can match artifacts and help demonstrate integrity.",
+        "cue": "Get-FileHash",
+        "id": "lab-2.3-2",
+        "section": "SEC401.2",
+        "domain": "Mobile",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "Get-FileHash"
+        ],
+        "bookCue": {
+          "section": "SEC401.2",
+          "topic": "Mobile",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "mobile",
+          "lab"
+        ]
+      },
+      {
+        "q": "What is the practical lesson?",
+        "choices": [
+          "Understand backup structure so you can triage data with appropriate tools",
+          "Only commercial forensic tools can examine backups",
+          "Mobile evidence has no metadata",
+          "Backups cannot contain exfiltrated files"
+        ],
+        "answer": 0,
+        "why": "The lab shows that understanding structure and artifacts matters as much as owning a specialized tool.",
+        "cue": "mobile forensic triage",
+        "id": "lab-2.3-3",
+        "section": "SEC401.2",
+        "domain": "Mobile",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "mobile forensic triage"
+        ],
+        "bookCue": {
+          "section": "SEC401.2",
+          "topic": "Mobile",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "mobile",
+          "lab"
+        ]
+      },
+      {
+        "id": "lab-2.3-4",
+        "section": "SEC401.2",
+        "domain": "Mobile",
+        "q": "A mobile backup extraction produces account tokens and messages. How should the output be handled?",
+        "choices": [
+          "As an executable program that must be launched",
+          "As public training data by default",
+          "As sensitive evidence with restricted access and documented handling",
+          "As harmless because it came from a backup"
+        ],
+        "answer": 2,
+        "why": "Backup data may contain credentials and personal content. Extraction does not reduce its sensitivity.",
+        "cue": "Mobile evidence handling",
+        "origin": "v0.3 original",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "Mobile evidence handling"
+        ],
+        "bookCue": {
+          "section": "SEC401.2",
+          "topic": "Mobile",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "mobile",
+          "lab"
+        ]
+      },
+      {
+        "id": "lab-2.3-5",
+        "section": "SEC401.2",
+        "domain": "Mobile",
+        "q": "A recovered record has a timestamp but no timezone documented. What should the timeline record?",
+        "choices": [
+          "The original timestamp and the unresolved timezone assumption",
+          "No timestamp at all",
+          "A guessed timezone presented as certain",
+          "Only the analyst's local time"
+        ],
+        "answer": 0,
+        "why": "Preserve original values and distinguish assumptions from verified conversions before correlating events.",
+        "cue": "Backup timestamp interpretation",
+        "origin": "v0.3 original",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "Backup timestamp interpretation"
+        ],
+        "bookCue": {
+          "section": "SEC401.2",
+          "topic": "Mobile",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "mobile",
+          "lab"
+        ]
+      }
+    ],
+    "description": "Independent guided workflow practice; not an official SANS lab or a live virtual machine."
+  },
+  {
+    "lab": "3.1",
+    "title": "Network Discovery",
+    "section": "SEC401.3",
+    "domain": "Penetration Testing",
+    "steps": [
+      {
+        "q": "Which tool is central to this lab?",
+        "choices": [
+          "Nmap",
+          "GPG",
+          "FileVault",
+          "auditd"
+        ],
+        "answer": 0,
+        "why": "The lab builds experience with Nmap for discovery and mapping.",
+        "cue": "Nmap",
+        "id": "lab-3.1-0",
+        "section": "SEC401.3",
+        "domain": "Penetration Testing",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "Nmap"
+        ],
+        "bookCue": {
+          "section": "SEC401.3",
+          "topic": "Penetration Testing",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "penetration-testing",
+          "lab"
+        ]
+      },
+      {
+        "q": "Which capability helps identify unexpected services?",
+        "choices": [
+          "Service/version detection",
+          "Password salting",
+          "Digital signatures",
+          "DLP watermarking"
+        ],
+        "answer": 0,
+        "why": "Service mapping can reveal services that do not match expected port assignments or baselines.",
+        "cue": "Nmap service detection",
+        "id": "lab-3.1-1",
+        "section": "SEC401.3",
+        "domain": "Penetration Testing",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "Nmap service detection"
+        ],
+        "bookCue": {
+          "section": "SEC401.3",
+          "topic": "Penetration Testing",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "penetration-testing",
+          "lab"
+        ]
+      },
+      {
+        "q": "Why compare a current scan with an older scan?",
+        "choices": [
+          "To detect configuration or exposure changes",
+          "To crack passwords",
+          "To validate certificates",
+          "To calculate hashes"
+        ],
+        "answer": 0,
+        "why": "Differences between scans can identify newly exposed services or other drift.",
+        "cue": "Nmap change detection",
+        "id": "lab-3.1-2",
+        "section": "SEC401.3",
+        "domain": "Penetration Testing",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "Nmap change detection"
+        ],
+        "bookCue": {
+          "section": "SEC401.3",
+          "topic": "Penetration Testing",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "penetration-testing",
+          "lab"
+        ]
+      },
+      {
+        "q": "What is the high-value security lesson?",
+        "choices": [
+          "Discovery data is useful for both attackers and defenders, so defenders should know their own exposure first",
+          "Scanning guarantees exploitation",
+          "Port numbers prove service identity",
+          "Nmap replaces asset inventory"
+        ],
+        "answer": 0,
+        "why": "The same discovery techniques attackers use can help defenders maintain accurate exposure awareness.",
+        "cue": "network discovery",
+        "id": "lab-3.1-3",
+        "section": "SEC401.3",
+        "domain": "Penetration Testing",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "network discovery"
+        ],
+        "bookCue": {
+          "section": "SEC401.3",
+          "topic": "Penetration Testing",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "penetration-testing",
+          "lab"
+        ]
+      },
+      {
+        "id": "lab-3.1-4",
+        "section": "SEC401.3",
+        "domain": "Penetration Testing",
+        "q": "An authorized scan reports 443/tcp open and 445/tcp filtered. What does filtered mean here?",
+        "choices": [
+          "Probes did not establish a definitive open or closed state because of filtering or similar interference",
+          "SMB authentication succeeded",
+          "Port 445 is guaranteed closed",
+          "No host exists at that address"
+        ],
+        "answer": 0,
+        "why": "Filtered is not equivalent to closed. Network controls or absent responses limit the inference.",
+        "cue": "Nmap filtered state",
+        "origin": "v0.3 original",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "Nmap filtered state"
+        ],
+        "bookCue": {
+          "section": "SEC401.3",
+          "topic": "Penetration Testing",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "penetration-testing",
+          "lab"
+        ]
+      },
+      {
+        "id": "lab-3.1-5",
+        "section": "SEC401.3",
+        "domain": "Penetration Testing",
+        "q": "A service banner claims an old version, but the administrator says a fix was backported. What should you do?",
+        "choices": [
+          "Assume the banner always proves exploitability",
+          "Delete all scan results",
+          "Exploit outside the agreed scope",
+          "Validate patch status and the actual vulnerable behavior using approved methods"
+        ],
+        "answer": 3,
+        "why": "Vendors may backport fixes without changing upstream-looking banners. Validate the condition and retain evidence.",
+        "cue": "Banner versus patch status",
+        "origin": "v0.3 original",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "Banner versus patch status"
+        ],
+        "bookCue": {
+          "section": "SEC401.3",
+          "topic": "Penetration Testing",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "penetration-testing",
+          "lab"
+        ]
+      }
+    ],
+    "description": "Independent guided workflow practice; not an official SANS lab or a live virtual machine."
+  },
+  {
+    "lab": "3.2",
+    "title": "Binary File Analysis and Characterization",
+    "section": "SEC401.3",
+    "domain": "Malware",
+    "steps": [
+      {
+        "q": "Which two tools are intentionally sufficient for the initial lab characterization?",
+        "choices": [
+          "PowerShell and strings.exe",
+          "Snort and Zeek",
+          "Nmap and tcpdump",
+          "chmod and auditd"
+        ],
+        "answer": 0,
+        "why": "The lab uses basic available tools to collect evidence before deeper malware analysis.",
+        "cue": "strings.exe PowerShell",
+        "id": "lab-3.2-0",
+        "section": "SEC401.3",
+        "domain": "Malware",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "strings.exe PowerShell"
+        ],
+        "bookCue": {
+          "section": "SEC401.3",
+          "topic": "Malware",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "malware",
+          "lab"
+        ]
+      },
+      {
+        "q": "What can strings from an executable reveal?",
+        "choices": [
+          "URLs, domains, paths, commands, and other clues",
+          "Definitive attacker identity",
+          "Guaranteed malware family attribution",
+          "The private signing key"
+        ],
+        "answer": 0,
+        "why": "Strings can expose useful indicators but require interpretation.",
+        "cue": "binary strings",
+        "id": "lab-3.2-1",
+        "section": "SEC401.3",
+        "domain": "Malware",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "binary strings"
+        ],
+        "bookCue": {
+          "section": "SEC401.3",
+          "topic": "Malware",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "malware",
+          "lab"
+        ]
+      },
+      {
+        "q": "How should AI be used in this lab?",
+        "choices": [
+          "As a reasoning aid to propose investigative steps, with evidence used to validate them",
+          "As the final authority",
+          "To replace artifact collection",
+          "To generate a conviction"
+        ],
+        "answer": 0,
+        "why": "The lab deliberately separates AI guidance from analyst evidence.",
+        "cue": "AI reasoning aid",
+        "id": "lab-3.2-2",
+        "section": "SEC401.3",
+        "domain": "Malware",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "AI reasoning aid"
+        ],
+        "bookCue": {
+          "section": "SEC401.3",
+          "topic": "Malware",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "malware",
+          "lab"
+        ]
+      },
+      {
+        "q": "What is the central workflow lesson?",
+        "choices": [
+          "Gather observable evidence before forming strong conclusions",
+          "Run the executable immediately on production",
+          "Trust filenames",
+          "Assume calculator-like behavior means the file is safe"
+        ],
+        "answer": 0,
+        "why": "Initial characterization should be evidence-driven and cautious.",
+        "cue": "malware characterization",
+        "id": "lab-3.2-3",
+        "section": "SEC401.3",
+        "domain": "Malware",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "malware characterization"
+        ],
+        "bookCue": {
+          "section": "SEC401.3",
+          "topic": "Malware",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "malware",
+          "lab"
+        ]
+      },
+      {
+        "id": "lab-3.2-4",
+        "section": "SEC401.3",
+        "domain": "Malware",
+        "q": "Static strings include a URL. What is the strongest conclusion supported by that artifact alone?",
+        "choices": [
+          "The file is harmless",
+          "The binary definitely connected to the URL",
+          "The URL text exists in the binary",
+          "The URL is the attacker controller"
+        ],
+        "answer": 2,
+        "why": "Static content does not prove execution. Correlate with code paths and controlled behavioral analysis.",
+        "cue": "Static artifact interpretation",
+        "origin": "v0.3 original",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "Static artifact interpretation"
+        ],
+        "bookCue": {
+          "section": "SEC401.3",
+          "topic": "Malware",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "malware",
+          "lab"
+        ]
+      },
+      {
+        "id": "lab-3.2-5",
+        "section": "SEC401.3",
+        "domain": "Malware",
+        "q": "A suspicious binary has the same SHA-256 as a preserved evidence copy. What does that support?",
+        "choices": [
+          "Proof that it ran on the victim",
+          "A guarantee that the file is benign",
+          "Byte-level integrity between the compared copies",
+          "The identity of the original author"
+        ],
+        "answer": 2,
+        "why": "Matching hashes support sameness of content under the hash's security assumptions, not intent or execution.",
+        "cue": "Binary hash comparison",
+        "origin": "v0.3 original",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "Binary hash comparison"
+        ],
+        "bookCue": {
+          "section": "SEC401.3",
+          "topic": "Malware",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "malware",
+          "lab"
+        ]
+      }
+    ],
+    "description": "Independent guided workflow practice; not an official SANS lab or a live virtual machine."
+  },
+  {
+    "lab": "3.3",
+    "title": "Web App Exploitation",
+    "section": "SEC401.3",
+    "domain": "Web Security",
+    "steps": [
+      {
+        "q": "What vulnerability is the focus of the lab?",
+        "choices": [
+          "SQL injection",
+          "Cross-site scripting only",
+          "ARP spoofing",
+          "Pass-the-ticket"
+        ],
+        "answer": 0,
+        "why": "The lab demonstrates a simple SQL injection flaw.",
+        "cue": "SQL injection",
+        "id": "lab-3.3-0",
+        "section": "SEC401.3",
+        "domain": "Web Security",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "SQL injection"
+        ],
+        "bookCue": {
+          "section": "SEC401.3",
+          "topic": "Web Security",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "web-security",
+          "lab"
+        ]
+      },
+      {
+        "q": "What architectural tiers are present in the lab application?",
+        "choices": [
+          "Nginx web tier, PHP application logic, and MySQL database",
+          "DNS, DHCP, and NTP",
+          "Kerberos, LDAP, and SMB only",
+          "Hypervisor, container, and SAN"
+        ],
+        "answer": 0,
+        "why": "The lab uses a three-tier web application design.",
+        "cue": "three-tier web app",
+        "id": "lab-3.3-1",
+        "section": "SEC401.3",
+        "domain": "Web Security",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "three-tier web app"
+        ],
+        "bookCue": {
+          "section": "SEC401.3",
+          "topic": "Web Security",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "web-security",
+          "lab"
+        ]
+      },
+      {
+        "q": "What design mistake enables the attack?",
+        "choices": [
+          "Unsafe input reaches a database query without adequate separation/validation",
+          "The database uses a password",
+          "HTTPS is enabled",
+          "The server has logs"
+        ],
+        "answer": 0,
+        "why": "Untrusted input must not be allowed to alter query syntax.",
+        "cue": "parameterized queries",
+        "id": "lab-3.3-2",
+        "section": "SEC401.3",
+        "domain": "Web Security",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "parameterized queries"
+        ],
+        "bookCue": {
+          "section": "SEC401.3",
+          "topic": "Web Security",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "web-security",
+          "lab"
+        ]
+      },
+      {
+        "q": "What should you remember for defense?",
+        "choices": [
+          "Use parameterized queries and enforce security on the server",
+          "Block apostrophes as the only defense",
+          "Rely on browser validation",
+          "Move the database to port 443"
+        ],
+        "answer": 0,
+        "why": "Prepared/parameterized statements are the core structural defense against SQL injection.",
+        "cue": "SQL injection defense",
+        "id": "lab-3.3-3",
+        "section": "SEC401.3",
+        "domain": "Web Security",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "SQL injection defense"
+        ],
+        "bookCue": {
+          "section": "SEC401.3",
+          "topic": "Web Security",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "web-security",
+          "lab"
+        ]
+      },
+      {
+        "id": "lab-3.3-4",
+        "section": "SEC401.3",
+        "domain": "Web Security",
+        "q": "Synthetic request: GET /invoice/208 returns another customer's invoice to user A. What should the lab fix validate?",
+        "choices": [
+          "Only that HTTPS is enabled",
+          "Authorization for user A on invoice 208",
+          "Only that 208 is numeric",
+          "Only that the button is hidden"
+        ],
+        "answer": 1,
+        "why": "Object access must be checked server-side for every request, regardless of identifier syntax.",
+        "cue": "Object access lab",
+        "origin": "v0.3 original",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "Object access lab"
+        ],
+        "bookCue": {
+          "section": "SEC401.3",
+          "topic": "Web Security",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "web-security",
+          "lab"
+        ]
+      },
+      {
+        "id": "lab-3.3-5",
+        "section": "SEC401.3",
+        "domain": "Web Security",
+        "q": "After parameterizing a database query, which test best validates the change?",
+        "choices": [
+          "Disable all database logging",
+          "Trust a code comment saying secure",
+          "Verify hostile input stays data and legitimate requests still work",
+          "Check only that the login page looks identical"
+        ],
+        "answer": 2,
+        "why": "A regression test should exercise the original injection condition and expected normal behavior.",
+        "cue": "Injection remediation validation",
+        "origin": "v0.3 original",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "Injection remediation validation"
+        ],
+        "bookCue": {
+          "section": "SEC401.3",
+          "topic": "Web Security",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "web-security",
+          "lab"
+        ]
+      }
+    ],
+    "description": "Independent guided workflow practice; not an official SANS lab or a live virtual machine."
+  },
+  {
+    "lab": "3.4",
+    "title": "SIEM Log Analysis",
+    "section": "SEC401.3",
+    "domain": "SIEM",
+    "steps": [
+      {
+        "q": "Why centralize logs?",
+        "choices": [
+          "To correlate activity across systems and make large datasets searchable",
+          "To eliminate the need for endpoint logs",
+          "To prevent all attacks",
+          "To replace time synchronization"
+        ],
+        "answer": 0,
+        "why": "Centralized logging creates a broader investigative view.",
+        "cue": "centralized logging",
+        "id": "lab-3.4-0",
+        "section": "SEC401.3",
+        "domain": "SIEM",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "centralized logging"
+        ],
+        "bookCue": {
+          "section": "SEC401.3",
+          "topic": "SIEM",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "siem",
+          "lab"
+        ]
+      },
+      {
+        "q": "Which stack does the lab use?",
+        "choices": [
+          "Elastic Stack with Elasticsearch and Kibana",
+          "Active Directory only",
+          "Docker Swarm only",
+          "GPG and OpenSSL only"
+        ],
+        "answer": 0,
+        "why": "The lab uses Elastic components to search and analyze security events.",
+        "cue": "Elastic SIEM",
+        "id": "lab-3.4-1",
+        "section": "SEC401.3",
+        "domain": "SIEM",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "Elastic SIEM"
+        ],
+        "bookCue": {
+          "section": "SEC401.3",
+          "topic": "SIEM",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "siem",
+          "lab"
+        ]
+      },
+      {
+        "q": "What is an investigative lead?",
+        "choices": [
+          "An anomaly or pattern that merits further examination",
+          "Proof of attribution",
+          "A guaranteed compromise",
+          "A patch baseline"
+        ],
+        "answer": 0,
+        "why": "SIEM analysis generates leads that must be validated against additional evidence.",
+        "cue": "SIEM investigative lead",
+        "id": "lab-3.4-2",
+        "section": "SEC401.3",
+        "domain": "SIEM",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "SIEM investigative lead"
+        ],
+        "bookCue": {
+          "section": "SEC401.3",
+          "topic": "SIEM",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "siem",
+          "lab"
+        ]
+      },
+      {
+        "q": "What limits even an excellent SIEM?",
+        "choices": [
+          "Missing or poor-quality telemetry",
+          "Too much disk space",
+          "Accurate timestamps",
+          "Centralized retention"
+        ],
+        "answer": 0,
+        "why": "A SIEM cannot analyze evidence that was never collected.",
+        "cue": "telemetry quality",
+        "id": "lab-3.4-3",
+        "section": "SEC401.3",
+        "domain": "SIEM",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "telemetry quality"
+        ],
+        "bookCue": {
+          "section": "SEC401.3",
+          "topic": "SIEM",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "siem",
+          "lab"
+        ]
+      },
+      {
+        "id": "lab-3.4-4",
+        "section": "SEC401.3",
+        "domain": "SIEM",
+        "q": "Synthetic log: 08:00 user=pat fail; 08:01 user=pat fail; 08:02 user=pat success; all src=203.0.113.7. What is the next useful correlation?",
+        "choices": [
+          "Only the log file's extension",
+          "Only the username's length",
+          "Only the server's screen size",
+          "Pat's device context and activity after the success"
+        ],
+        "answer": 3,
+        "why": "The sequence is suspicious but not conclusive. Context and subsequent actions help distinguish compromise from user error.",
+        "cue": "Authentication timeline",
+        "origin": "v0.3 original",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "Authentication timeline"
+        ],
+        "bookCue": {
+          "section": "SEC401.3",
+          "topic": "SIEM",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "siem",
+          "lab"
+        ]
+      },
+      {
+        "id": "lab-3.4-5",
+        "section": "SEC401.3",
+        "domain": "SIEM",
+        "q": "A parser accidentally maps destination_ip into source_ip. What happens to source-based detections?",
+        "choices": [
+          "They become cryptographically stronger",
+          "They may attribute or correlate activity incorrectly",
+          "They cannot produce false positives",
+          "They automatically repair raw events"
+        ],
+        "answer": 1,
+        "why": "Field extraction errors undermine rules and investigations. Validate normalization against original events.",
+        "cue": "SIEM parser validation",
+        "origin": "v0.3 original",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "SIEM parser validation"
+        ],
+        "bookCue": {
+          "section": "SEC401.3",
+          "topic": "SIEM",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "siem",
+          "lab"
+        ]
+      }
+    ],
+    "description": "Independent guided workflow practice; not an official SANS lab or a live virtual machine."
+  },
+  {
+    "lab": "4.1",
+    "title": "Hashing and Cryptographic Validation",
+    "section": "SEC401.4",
+    "domain": "Cryptography",
+    "steps": [
+      {
+        "q": "What does a file hash primarily help demonstrate?",
+        "choices": [
+          "Content integrity",
+          "Confidentiality",
+          "Availability",
+          "Network reachability"
+        ],
+        "answer": 0,
+        "why": "A cryptographic hash can detect changes to file contents.",
+        "cue": "hash integrity",
+        "id": "lab-4.1-0",
+        "section": "SEC401.4",
+        "domain": "Cryptography",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "hash integrity"
+        ],
+        "bookCue": {
+          "section": "SEC401.4",
+          "topic": "Cryptography",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "cryptography",
+          "lab"
+        ]
+      },
+      {
+        "q": "Which tool is used in the lab for signing/verification operations?",
+        "choices": [
+          "GPG",
+          "Nmap",
+          "Zeek",
+          "icacls"
+        ],
+        "answer": 0,
+        "why": "GPG supports key generation and digital signature operations.",
+        "cue": "GPG",
+        "id": "lab-4.1-1",
+        "section": "SEC401.4",
+        "domain": "Cryptography",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "GPG"
+        ],
+        "bookCue": {
+          "section": "SEC401.4",
+          "topic": "Cryptography",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "cryptography",
+          "lab"
+        ]
+      },
+      {
+        "q": "Which key does the signer use to create a normal digital signature?",
+        "choices": [
+          "Private key",
+          "Public key",
+          "Shared password only",
+          "MAC address"
+        ],
+        "answer": 0,
+        "why": "The private key creates the signature; the public key verifies it.",
+        "cue": "digital signature",
+        "id": "lab-4.1-2",
+        "section": "SEC401.4",
+        "domain": "Cryptography",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "digital signature"
+        ],
+        "bookCue": {
+          "section": "SEC401.4",
+          "topic": "Cryptography",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "cryptography",
+          "lab"
+        ]
+      },
+      {
+        "q": "What combination does signature verification support?",
+        "choices": [
+          "Integrity plus origin authentication",
+          "Confidentiality only",
+          "Availability only",
+          "Compression plus routing"
+        ],
+        "answer": 0,
+        "why": "A valid signature provides evidence that the signed content was not altered and corresponds to the signing key.",
+        "cue": "signature validation",
+        "id": "lab-4.1-3",
+        "section": "SEC401.4",
+        "domain": "Cryptography",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "signature validation"
+        ],
+        "bookCue": {
+          "section": "SEC401.4",
+          "topic": "Cryptography",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "cryptography",
+          "lab"
+        ]
+      },
+      {
+        "id": "lab-4.1-4",
+        "section": "SEC401.4",
+        "domain": "Cryptography",
+        "q": "Expected SHA-256 is A; acquired copy hashes to B. What is the appropriate response?",
+        "choices": [
+          "Change B to A in the report",
+          "Delete the original evidence",
+          "Stop relying on integrity and investigate acquisition or reference differences",
+          "Declare the copy authentic anyway"
+        ],
+        "answer": 2,
+        "why": "A mismatch requires explanation: the data, acquisition, or trusted reference may differ. Preserve evidence and document findings.",
+        "cue": "Hash mismatch investigation",
+        "origin": "v0.3 original",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "Hash mismatch investigation"
+        ],
+        "bookCue": {
+          "section": "SEC401.4",
+          "topic": "Cryptography",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "cryptography",
+          "lab"
+        ]
+      },
+      {
+        "id": "lab-4.1-5",
+        "section": "SEC401.4",
+        "domain": "Cryptography",
+        "q": "A detached signature verifies, but the key fingerprint is unknown. What remains necessary?",
+        "choices": [
+          "Assume any valid key belongs to the publisher",
+          "Publish your private key",
+          "Convert the signature to base64",
+          "Authenticate the signing key's identity through a trusted channel"
+        ],
+        "answer": 3,
+        "why": "Signature mathematics and identity trust are separate. Verify the expected fingerprint or trusted certification path.",
+        "cue": "Signing key trust",
+        "origin": "v0.3 original",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "Signing key trust"
+        ],
+        "bookCue": {
+          "section": "SEC401.4",
+          "topic": "Cryptography",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "cryptography",
+          "lab"
+        ]
+      }
+    ],
+    "description": "Independent guided workflow practice; not an official SANS lab or a live virtual machine."
+  },
+  {
+    "lab": "4.2",
+    "title": "Encryption and Decryption",
+    "section": "SEC401.4",
+    "domain": "Cryptography",
+    "steps": [
+      {
+        "q": "What security property is the lab primarily applying to stored data?",
+        "choices": [
+          "Confidentiality",
+          "Availability",
+          "Routing",
+          "Accounting only"
+        ],
+        "answer": 0,
+        "why": "Encryption at rest protects stored information from unauthorized reading.",
+        "cue": "encryption at rest",
+        "id": "lab-4.2-0",
+        "section": "SEC401.4",
+        "domain": "Cryptography",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "encryption at rest"
+        ],
+        "bookCue": {
+          "section": "SEC401.4",
+          "topic": "Cryptography",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "cryptography",
+          "lab"
+        ]
+      },
+      {
+        "q": "What is the key distinction between symmetric and asymmetric encryption?",
+        "choices": [
+          "Symmetric uses a shared secret; asymmetric uses a public/private key pair",
+          "Symmetric is hashing",
+          "Asymmetric has no keys",
+          "They are identical"
+        ],
+        "answer": 0,
+        "why": "The two models differ primarily in key structure and operational use.",
+        "cue": "symmetric vs asymmetric",
+        "id": "lab-4.2-1",
+        "section": "SEC401.4",
+        "domain": "Cryptography",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "symmetric vs asymmetric"
+        ],
+        "bookCue": {
+          "section": "SEC401.4",
+          "topic": "Cryptography",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "cryptography",
+          "lab"
+        ]
+      },
+      {
+        "q": "When encrypting to a recipient using public-key cryptography, which key is normally used for confidentiality?",
+        "choices": [
+          "Recipient public key",
+          "Recipient private key",
+          "Sender private key only",
+          "Hash digest"
+        ],
+        "answer": 0,
+        "why": "Data encrypted for a recipient is protected using their public key so only the matching private key can decrypt it.",
+        "cue": "public-key encryption",
+        "id": "lab-4.2-2",
+        "section": "SEC401.4",
+        "domain": "Cryptography",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "public-key encryption"
+        ],
+        "bookCue": {
+          "section": "SEC401.4",
+          "topic": "Cryptography",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "cryptography",
+          "lab"
+        ]
+      },
+      {
+        "q": "What should you remember?",
+        "choices": [
+          "Encryption is reversible with the proper key; hashing is generally one-way",
+          "Hashing and encryption are interchangeable",
+          "Signatures hide plaintext",
+          "Salts are encryption keys"
+        ],
+        "answer": 0,
+        "why": "GSEC questions often test the property each cryptographic mechanism actually provides.",
+        "cue": "hashing vs encryption",
+        "id": "lab-4.2-3",
+        "section": "SEC401.4",
+        "domain": "Cryptography",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "hashing vs encryption"
+        ],
+        "bookCue": {
+          "section": "SEC401.4",
+          "topic": "Cryptography",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "cryptography",
+          "lab"
+        ]
+      },
+      {
+        "id": "lab-4.2-4",
+        "section": "SEC401.4",
+        "domain": "Cryptography",
+        "q": "A sender encrypts a message using a recipient's public key. Which secret is normally needed to decrypt it?",
+        "choices": [
+          "The recipient's certificate serial alone",
+          "The recipient's corresponding private key",
+          "The sender's public key",
+          "The message's SHA-256 alone"
+        ],
+        "answer": 1,
+        "why": "Public-key encryption targets a key pair. Protect the recipient private key and verify the intended public key binding.",
+        "cue": "Public-key encryption roles",
+        "origin": "v0.3 original",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "Public-key encryption roles"
+        ],
+        "bookCue": {
+          "section": "SEC401.4",
+          "topic": "Cryptography",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "cryptography",
+          "lab"
+        ]
+      },
+      {
+        "id": "lab-4.2-5",
+        "section": "SEC401.4",
+        "domain": "Cryptography",
+        "q": "Decryption fails after a ciphertext byte is changed in an authenticated encryption scheme. What is the likely intended behavior?",
+        "choices": [
+          "Reject tampered ciphertext rather than release unauthenticated plaintext",
+          "Disable integrity checking automatically",
+          "Silently fix any attacker changes",
+          "Recover the key from the changed byte"
+        ],
+        "answer": 0,
+        "why": "Authentication failure should prevent use of modified data. Do not bypass the integrity check to force decryption.",
+        "cue": "Authenticated decryption failure",
+        "origin": "v0.3 original",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "Authenticated decryption failure"
+        ],
+        "bookCue": {
+          "section": "SEC401.4",
+          "topic": "Cryptography",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "cryptography",
+          "lab"
+        ]
+      }
+    ],
+    "description": "Independent guided workflow practice; not an official SANS lab or a live virtual machine."
+  },
+  {
+    "lab": "4.3",
+    "title": "Intrusion Detection and Network Security Monitoring",
+    "section": "SEC401.4",
+    "domain": "Network Defense",
+    "steps": [
+      {
+        "q": "Which tool is most strongly associated with signature/rule matching?",
+        "choices": [
+          "Snort",
+          "Zeek",
+          "GPG",
+          "Hashcat"
+        ],
+        "answer": 0,
+        "why": "Snort uses rules to match known traffic patterns.",
+        "cue": "Snort rules",
+        "id": "lab-4.3-0",
+        "section": "SEC401.4",
+        "domain": "Network Defense",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "Snort rules"
+        ],
+        "bookCue": {
+          "section": "SEC401.4",
+          "topic": "Network Defense",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "network-defense",
+          "lab"
+        ]
+      },
+      {
+        "q": "Which tool is most strongly associated with rich protocol logs and behavior-oriented hunting?",
+        "choices": [
+          "Zeek",
+          "Snort only",
+          "John the Ripper",
+          "FileVault"
+        ],
+        "answer": 0,
+        "why": "Zeek generates structured protocol telemetry useful for correlation and hunting.",
+        "cue": "Zeek logs",
+        "id": "lab-4.3-1",
+        "section": "SEC401.4",
+        "domain": "Network Defense",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "Zeek logs"
+        ],
+        "bookCue": {
+          "section": "SEC401.4",
+          "topic": "Network Defense",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "network-defense",
+          "lab"
+        ]
+      },
+      {
+        "q": "Why does the lab expose you to both tools?",
+        "choices": [
+          "They represent complementary detection approaches",
+          "They perform exactly the same function",
+          "One encrypts and one decrypts",
+          "They replace packet captures"
+        ],
+        "answer": 0,
+        "why": "Signature alerts and protocol telemetry answer different security questions.",
+        "cue": "Snort vs Zeek",
+        "id": "lab-4.3-2",
+        "section": "SEC401.4",
+        "domain": "Network Defense",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "Snort vs Zeek"
+        ],
+        "bookCue": {
+          "section": "SEC401.4",
+          "topic": "Network Defense",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "network-defense",
+          "lab"
+        ]
+      },
+      {
+        "q": "What is the high-level lesson?",
+        "choices": [
+          "Prevention is ideal, but timely detection is mandatory for effective response",
+          "Detection removes the need for response",
+          "Signatures detect every attack",
+          "Logs are useful only for troubleshooting"
+        ],
+        "answer": 0,
+        "why": "Detection creates the opportunity to contain and investigate attacks that prevention misses.",
+        "cue": "prevention detection response",
+        "id": "lab-4.3-3",
+        "section": "SEC401.4",
+        "domain": "Network Defense",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "prevention detection response"
+        ],
+        "bookCue": {
+          "section": "SEC401.4",
+          "topic": "Network Defense",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "network-defense",
+          "lab"
+        ]
+      },
+      {
+        "id": "lab-4.3-4",
+        "section": "SEC401.4",
+        "domain": "Network Defense",
+        "q": "A sensor records one signature match on a test exploit request. What additional check evaluates prevention?",
+        "choices": [
+          "Whether the protected application received or processed the request",
+          "Whether the analyst recognizes the source IP",
+          "Whether the alert color is red",
+          "Whether the rule name contains block"
+        ],
+        "answer": 0,
+        "why": "An alert proves detection, not successful enforcement. Correlate sensor mode, action, and endpoint/application evidence.",
+        "cue": "IDS IPS validation",
+        "origin": "v0.3 original",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "IDS IPS validation"
+        ],
+        "bookCue": {
+          "section": "SEC401.4",
+          "topic": "Network Defense",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "network-defense",
+          "lab"
+        ]
+      },
+      {
+        "id": "lab-4.3-5",
+        "section": "SEC401.4",
+        "domain": "Network Defense",
+        "q": "A network sensor is connected to the wrong mirror port and sees no server traffic. What does a quiet dashboard indicate?",
+        "choices": [
+          "A successful vulnerability patch",
+          "A possible visibility gap, not evidence of no attacks",
+          "A guaranteed secure server",
+          "That all traffic is encrypted with perfect security"
+        ],
+        "answer": 1,
+        "why": "Validate sensor placement, packet counts, and expected test traffic before trusting detection silence.",
+        "cue": "Sensor placement validation",
+        "origin": "v0.3 original",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "Sensor placement validation"
+        ],
+        "bookCue": {
+          "section": "SEC401.4",
+          "topic": "Network Defense",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "network-defense",
+          "lab"
+        ]
+      }
+    ],
+    "description": "Independent guided workflow practice; not an official SANS lab or a live virtual machine."
+  },
+  {
+    "lab": "5.1",
+    "title": "Windows Process Exploration",
+    "section": "SEC401.5",
+    "domain": "Windows",
+    "steps": [
+      {
+        "q": "Which tool does the lab use to inspect Windows processes?",
+        "choices": [
+          "System Informer",
+          "Nmap",
+          "GPG",
+          "Zeek"
+        ],
+        "answer": 0,
+        "why": "System Informer provides detailed Windows process visibility.",
+        "cue": "System Informer",
+        "id": "lab-5.1-0",
+        "section": "SEC401.5",
+        "domain": "Windows",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "System Informer"
+        ],
+        "bookCue": {
+          "section": "SEC401.5",
+          "topic": "Windows",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "windows",
+          "lab"
+        ]
+      },
+      {
+        "q": "Which process relationship is a strong investigative lead?",
+        "choices": [
+          "Office application spawning PowerShell with an encoded command",
+          "Explorer launching a user application",
+          "Expected service under services.exe",
+          "Signed system binary in its normal path"
+        ],
+        "answer": 0,
+        "why": "Unexpected parent-child relationships can indicate malicious execution chains.",
+        "cue": "process parent child",
+        "id": "lab-5.1-1",
+        "section": "SEC401.5",
+        "domain": "Windows",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "process parent child"
+        ],
+        "bookCue": {
+          "section": "SEC401.5",
+          "topic": "Windows",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "windows",
+          "lab"
+        ]
+      },
+      {
+        "q": "Why inspect process memory or associated connections?",
+        "choices": [
+          "They can reveal network destinations, strings, or files tied to suspicious behavior",
+          "They always reveal passwords",
+          "They replace logging",
+          "They prove attribution"
+        ],
+        "answer": 0,
+        "why": "Process context can connect execution activity to network or file artifacts.",
+        "cue": "process investigation",
+        "id": "lab-5.1-2",
+        "section": "SEC401.5",
+        "domain": "Windows",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "process investigation"
+        ],
+        "bookCue": {
+          "section": "SEC401.5",
+          "topic": "Windows",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "windows",
+          "lab"
+        ]
+      },
+      {
+        "q": "In Windows Process Exploration, which principle should guide your workflow?",
+        "choices": [
+          "Know normal process behavior so abnormal execution stands out",
+          "Every unknown process is malware",
+          "Process names alone prove legitimacy",
+          "Reboot before inspecting"
+        ],
+        "answer": 0,
+        "why": "Baseline awareness and context are essential to process triage.",
+        "cue": "Windows process triage",
+        "id": "lab-5.1-3",
+        "section": "SEC401.5",
+        "domain": "Windows",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "Windows process triage"
+        ],
+        "bookCue": {
+          "section": "SEC401.5",
+          "topic": "Windows",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "windows",
+          "lab"
+        ]
+      },
+      {
+        "id": "lab-5.1-4",
+        "section": "SEC401.5",
+        "domain": "Windows",
+        "q": "Process tree: winword.exe -> powershell.exe -> unknown.exe. What does this justify?",
+        "choices": [
+          "Investigation of document-triggered execution and related evidence",
+          "An automatic conclusion that every Office document is malicious",
+          "A claim that the user was offline",
+          "Immediate deletion of all Windows binaries"
+        ],
+        "answer": 0,
+        "why": "Unexpected parent-child relationships are useful leads. Inspect command lines, signer, file path, network activity, and user context.",
+        "cue": "Process lineage lab",
+        "origin": "v0.3 original",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "Process lineage lab"
+        ],
+        "bookCue": {
+          "section": "SEC401.5",
+          "topic": "Windows",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "windows",
+          "lab"
+        ]
+      },
+      {
+        "id": "lab-5.1-5",
+        "section": "SEC401.5",
+        "domain": "Windows",
+        "q": "A process is named svchost.exe but runs from a user's Downloads folder. What is the relevant next check?",
+        "choices": [
+          "Rename it to explorer.exe",
+          "Disable file-integrity monitoring",
+          "Validate path, signature, parentage, and behavior",
+          "Trust the name because it looks familiar"
+        ],
+        "answer": 2,
+        "why": "Names can be impersonated. Provenance and execution context matter more than a familiar filename alone.",
+        "cue": "Process masquerading",
+        "origin": "v0.3 original",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "Process masquerading"
+        ],
+        "bookCue": {
+          "section": "SEC401.5",
+          "topic": "Windows",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "windows",
+          "lab"
+        ]
+      }
+    ],
+    "description": "Independent guided workflow practice; not an official SANS lab or a live virtual machine."
+  },
+  {
+    "lab": "5.2",
+    "title": "Windows Filesystem Permissions",
+    "section": "SEC401.5",
+    "domain": "Windows",
+    "steps": [
+      {
+        "q": "Which two permission layers can both affect remote SMB access?",
+        "choices": [
+          "Share and NTFS permissions",
+          "Kerberos and DNS",
+          "TCP and UDP",
+          "PKI and HMAC"
+        ],
+        "answer": 0,
+        "why": "Remote file access can be constrained by both share-level and NTFS ACLs.",
+        "cue": "share vs NTFS",
+        "id": "lab-5.2-0",
+        "section": "SEC401.5",
+        "domain": "Windows",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "share vs NTFS"
+        ],
+        "bookCue": {
+          "section": "SEC401.5",
+          "topic": "Windows",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "windows",
+          "lab"
+        ]
+      },
+      {
+        "q": "What is a DACL made of?",
+        "choices": [
+          "Access Control Entries",
+          "DNS records",
+          "Kerberos tickets",
+          "Packet filters"
+        ],
+        "answer": 0,
+        "why": "A DACL contains ACEs that allow or deny access.",
+        "cue": "DACL ACE",
+        "id": "lab-5.2-1",
+        "section": "SEC401.5",
+        "domain": "Windows",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "DACL ACE"
+        ],
+        "bookCue": {
+          "section": "SEC401.5",
+          "topic": "Windows",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "windows",
+          "lab"
+        ]
+      },
+      {
+        "q": "What is a common security failure with permissions?",
+        "choices": [
+          "Troubleshooting causes overly broad access that is never corrected",
+          "Permissions never change",
+          "Deny entries cannot exist",
+          "Groups cannot receive permissions"
+        ],
+        "answer": 0,
+        "why": "Temporary permission changes often become permanent exposure if not reviewed.",
+        "cue": "permission drift",
+        "id": "lab-5.2-2",
+        "section": "SEC401.5",
+        "domain": "Windows",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "permission drift"
+        ],
+        "bookCue": {
+          "section": "SEC401.5",
+          "topic": "Windows",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "windows",
+          "lab"
+        ]
+      },
+      {
+        "q": "What does the lab teach?",
+        "choices": [
+          "Identify and remediate unsafe filesystem ACLs rather than merely observe them",
+          "Share permissions always override NTFS",
+          "Full Control is safest",
+          "Inheritance should always be disabled"
+        ],
+        "answer": 0,
+        "why": "The lab focuses on detecting and fixing incorrect access-control configuration.",
+        "cue": "Windows permissions remediation",
+        "id": "lab-5.2-3",
+        "section": "SEC401.5",
+        "domain": "Windows",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "Windows permissions remediation"
+        ],
+        "bookCue": {
+          "section": "SEC401.5",
+          "topic": "Windows",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "windows",
+          "lab"
+        ]
+      },
+      {
+        "id": "lab-5.2-4",
+        "section": "SEC401.5",
+        "domain": "Windows",
+        "q": "Share permission Read; NTFS permission Full Control; no other rules. Can the user modify the file through that share?",
+        "choices": [
+          "No, the share restricts remote access to Read",
+          "Yes, NTFS always overrides share permissions",
+          "Yes, only file size matters",
+          "No, because shares never support writes"
+        ],
+        "answer": 0,
+        "why": "Both layers apply to remote access; the share restriction limits this simplified example.",
+        "cue": "Effective SMB access",
+        "origin": "v0.3 original",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "Effective SMB access"
+        ],
+        "bookCue": {
+          "section": "SEC401.5",
+          "topic": "Windows",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "windows",
+          "lab"
+        ]
+      },
+      {
+        "id": "lab-5.2-5",
+        "section": "SEC401.5",
+        "domain": "Windows",
+        "q": "A new deny entry blocks a business group unexpectedly. What should be reviewed before adding broader allow entries?",
+        "choices": [
+          "Only the keyboard shortcut",
+          "Only the file's display icon",
+          "Only the disk serial number",
+          "Explicit denies, inheritance, and group membership"
+        ],
+        "answer": 3,
+        "why": "Additional allows may not resolve deny behavior. Analyze the actual access-check inputs and scope of the deny.",
+        "cue": "Windows ACL troubleshooting",
+        "origin": "v0.3 original",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "Windows ACL troubleshooting"
+        ],
+        "bookCue": {
+          "section": "SEC401.5",
+          "topic": "Windows",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "windows",
+          "lab"
+        ]
+      }
+    ],
+    "description": "Independent guided workflow practice; not an official SANS lab or a live virtual machine."
+  },
+  {
+    "lab": "5.3",
+    "title": "Applying Windows System Security Policies",
+    "section": "SEC401.5",
+    "domain": "Windows",
+    "steps": [
+      {
+        "q": "Why are known-good security baselines valuable?",
+        "choices": [
+          "Unauthorized configuration drift becomes easier to detect",
+          "They eliminate patching",
+          "They remove the need for logging",
+          "They make every system different"
+        ],
+        "answer": 0,
+        "why": "Configuration management creates an expected state for comparison.",
+        "cue": "security baseline",
+        "id": "lab-5.3-0",
+        "section": "SEC401.5",
+        "domain": "Windows",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "security baseline"
+        ],
+        "bookCue": {
+          "section": "SEC401.5",
+          "topic": "Windows",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "windows",
+          "lab"
+        ]
+      },
+      {
+        "q": "What should happen after applying a desired security configuration?",
+        "choices": [
+          "Validate that the system actually matches the desired state",
+          "Assume it succeeded",
+          "Delete the logs",
+          "Disable change control"
+        ],
+        "answer": 0,
+        "why": "Verification is required to prove the intended settings took effect.",
+        "cue": "configuration validation",
+        "id": "lab-5.3-1",
+        "section": "SEC401.5",
+        "domain": "Windows",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "configuration validation"
+        ],
+        "bookCue": {
+          "section": "SEC401.5",
+          "topic": "Windows",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "windows",
+          "lab"
+        ]
+      },
+      {
+        "q": "How does change control support security investigations?",
+        "choices": [
+          "Unapproved changes become suspicious leads",
+          "It encrypts files",
+          "It replaces backups",
+          "It maps IP to MAC"
+        ],
+        "answer": 0,
+        "why": "A well-maintained change record helps distinguish authorized drift from potentially malicious changes.",
+        "cue": "change control",
+        "id": "lab-5.3-2",
+        "section": "SEC401.5",
+        "domain": "Windows",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "change control"
+        ],
+        "bookCue": {
+          "section": "SEC401.5",
+          "topic": "Windows",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "windows",
+          "lab"
+        ]
+      },
+      {
+        "q": "What is the core lesson?",
+        "choices": [
+          "Consistent configuration plus validation improves both prevention and detection",
+          "Configuration management is only administrative paperwork",
+          "Policies cannot affect security",
+          "Baselines are static forever"
+        ],
+        "answer": 0,
+        "why": "Secure configuration management creates enforceable and observable system state.",
+        "cue": "Windows policy enforcement",
+        "id": "lab-5.3-3",
+        "section": "SEC401.5",
+        "domain": "Windows",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "Windows policy enforcement"
+        ],
+        "bookCue": {
+          "section": "SEC401.5",
+          "topic": "Windows",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "windows",
+          "lab"
+        ]
+      },
+      {
+        "id": "lab-5.3-4",
+        "section": "SEC401.5",
+        "domain": "Windows",
+        "q": "A security GPO exists but a host does not apply it. What should the lab check?",
+        "choices": [
+          "Only whether the host has a browser",
+          "Only that a password was changed",
+          "Link scope, security filtering, and resultant policy",
+          "Only that the GPO has a descriptive name"
+        ],
+        "answer": 2,
+        "why": "Policy existence does not prove application. Scope, filtering, processing, and replication can affect results.",
+        "cue": "GPO application troubleshooting",
+        "origin": "v0.3 original",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "GPO application troubleshooting"
+        ],
+        "bookCue": {
+          "section": "SEC401.5",
+          "topic": "Windows",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "windows",
+          "lab"
+        ]
+      },
+      {
+        "id": "lab-5.3-5",
+        "section": "SEC401.5",
+        "domain": "Windows",
+        "q": "A baseline disables a required legacy service. What is the best resolution?",
+        "choices": [
+          "Disable the entire baseline fleet-wide",
+          "Grant every user administrator access",
+          "Assess the dependency and approve a narrow documented exception or replacement",
+          "Stop auditing policy changes"
+        ],
+        "answer": 2,
+        "why": "A scoped exception or replacement can manage business needs without abandoning unrelated protections.",
+        "cue": "Baseline exception control",
+        "origin": "v0.3 original",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "Baseline exception control"
+        ],
+        "bookCue": {
+          "section": "SEC401.5",
+          "topic": "Windows",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "windows",
+          "lab"
+        ]
+      }
+    ],
+    "description": "Independent guided workflow practice; not an official SANS lab or a live virtual machine."
+  },
+  {
+    "lab": "5.4",
+    "title": "Using PowerShell for Speed and Scale",
+    "section": "SEC401.5",
+    "domain": "Windows",
+    "steps": [
+      {
+        "q": "What is a major PowerShell strength for security work?",
+        "choices": [
+          "Automating structured queries and actions across systems",
+          "It can only display text",
+          "It cannot access event logs",
+          "It has no object pipeline"
+        ],
+        "answer": 0,
+        "why": "PowerShell can gather and manipulate structured system information at scale.",
+        "cue": "PowerShell automation",
+        "id": "lab-5.4-0",
+        "section": "SEC401.5",
+        "domain": "Windows",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "PowerShell automation"
+        ],
+        "bookCue": {
+          "section": "SEC401.5",
+          "topic": "Windows",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "windows",
+          "lab"
+        ]
+      },
+      {
+        "q": "Which cmdlet would you use to inspect Windows event logs?",
+        "choices": [
+          "Get-WinEvent",
+          "Get-Process",
+          "Get-FileHash",
+          "Get-Service"
+        ],
+        "answer": 0,
+        "why": "Get-WinEvent queries Windows event logs.",
+        "cue": "Get-WinEvent",
+        "id": "lab-5.4-1",
+        "section": "SEC401.5",
+        "domain": "Windows",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "Get-WinEvent"
+        ],
+        "bookCue": {
+          "section": "SEC401.5",
+          "topic": "Windows",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "windows",
+          "lab"
+        ]
+      },
+      {
+        "q": "Which cmdlet calculates a file hash?",
+        "choices": [
+          "Get-FileHash",
+          "Get-Process",
+          "Get-Service",
+          "Get-WinEvent"
+        ],
+        "answer": 0,
+        "why": "Get-FileHash computes a cryptographic digest.",
+        "cue": "Get-FileHash",
+        "id": "lab-5.4-2",
+        "section": "SEC401.5",
+        "domain": "Windows",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "Get-FileHash"
+        ],
+        "bookCue": {
+          "section": "SEC401.5",
+          "topic": "Windows",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "windows",
+          "lab"
+        ]
+      },
+      {
+        "q": "In Using PowerShell for Speed and Scale, which principle should guide your workflow?",
+        "choices": [
+          "Automation magnifies speed and scale, so defenders should use PowerShell deliberately and know its artifacts",
+          "PowerShell is inherently malicious",
+          "GUI administration is always more secure",
+          "Scripts require no validation"
+        ],
+        "answer": 0,
+        "why": "PowerShell is a legitimate administrative and investigative platform that must be understood by defenders.",
+        "cue": "PowerShell security",
+        "id": "lab-5.4-3",
+        "section": "SEC401.5",
+        "domain": "Windows",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "PowerShell security"
+        ],
+        "bookCue": {
+          "section": "SEC401.5",
+          "topic": "Windows",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "windows",
+          "lab"
+        ]
+      },
+      {
+        "id": "lab-5.4-4",
+        "section": "SEC401.5",
+        "domain": "Windows",
+        "q": "PowerShell pipeline returns process objects. Why use Where-Object on a property before Format-Table?",
+        "choices": [
+          "Objects cannot be filtered",
+          "Formatting is for display and should follow object-based filtering",
+          "Where-Object encrypts the output",
+          "Format-Table strengthens access control"
+        ],
+        "answer": 1,
+        "why": "Keep structured objects through data operations; format only when presenting results.",
+        "cue": "PowerShell pipeline order",
+        "origin": "v0.3 original",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "PowerShell pipeline order"
+        ],
+        "bookCue": {
+          "section": "SEC401.5",
+          "topic": "Windows",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "windows",
+          "lab"
+        ]
+      },
+      {
+        "id": "lab-5.4-5",
+        "section": "SEC401.5",
+        "domain": "Windows",
+        "q": "A script needs a secret for unattended operation. Which approach avoids a hardcoded plaintext secret in source?",
+        "choices": [
+          "Use a managed identity or an approved secret store",
+          "Base64-encode it beside the code",
+          "Hide the secret in a comment",
+          "Rename the variable to public"
+        ],
+        "answer": 0,
+        "why": "Identity-based access or managed secret retrieval reduces source-code exposure. Scope and audit access.",
+        "cue": "Automation secret handling",
+        "origin": "v0.3 original",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "Automation secret handling"
+        ],
+        "bookCue": {
+          "section": "SEC401.5",
+          "topic": "Windows",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "windows",
+          "lab"
+        ]
+      }
+    ],
+    "description": "Independent guided workflow practice; not an official SANS lab or a live virtual machine."
+  },
+  {
+    "lab": "6.1",
+    "title": "Linux Permissions",
+    "section": "SEC401.6",
+    "domain": "Linux",
+    "steps": [
+      {
+        "q": "What numeric value represents read permission?",
+        "choices": [
+          "4",
+          "2",
+          "1",
+          "7"
+        ],
+        "answer": 0,
+        "why": "Linux numeric permissions use read=4, write=2, execute=1.",
+        "cue": "Linux permission 4",
+        "id": "lab-6.1-0",
+        "section": "SEC401.6",
+        "domain": "Linux",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "Linux permission 4"
+        ],
+        "bookCue": {
+          "section": "SEC401.6",
+          "topic": "Linux",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "linux",
+          "lab"
+        ]
+      },
+      {
+        "q": "What does chmod change?",
+        "choices": [
+          "Permission mode bits",
+          "File ownership",
+          "System logs",
+          "Container images"
+        ],
+        "answer": 0,
+        "why": "chmod changes the permission mode of files or directories.",
+        "cue": "chmod",
+        "id": "lab-6.1-1",
+        "section": "SEC401.6",
+        "domain": "Linux",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "chmod"
+        ],
+        "bookCue": {
+          "section": "SEC401.6",
+          "topic": "Linux",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "linux",
+          "lab"
+        ]
+      },
+      {
+        "q": "Why do set-UID, set-GID, and sticky permissions deserve special attention?",
+        "choices": [
+          "They modify normal execution or directory permission behavior",
+          "They are Windows-only",
+          "They encrypt files",
+          "They disable ownership"
+        ],
+        "answer": 0,
+        "why": "Special permission bits can change privilege or deletion behavior and therefore affect security.",
+        "cue": "special permissions",
+        "id": "lab-6.1-2",
+        "section": "SEC401.6",
+        "domain": "Linux",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "special permissions"
+        ],
+        "bookCue": {
+          "section": "SEC401.6",
+          "topic": "Linux",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "linux",
+          "lab"
+        ]
+      },
+      {
+        "q": "What is the central lesson?",
+        "choices": [
+          "Understand owner, group, others, and special bits rather than memorizing isolated chmod examples",
+          "Linux has no access controls",
+          "777 is a secure default",
+          "Ownership never matters"
+        ],
+        "answer": 0,
+        "why": "Linux access control depends on interpreting the complete permission and ownership context.",
+        "cue": "Linux permissions",
+        "id": "lab-6.1-3",
+        "section": "SEC401.6",
+        "domain": "Linux",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "Linux permissions"
+        ],
+        "bookCue": {
+          "section": "SEC401.6",
+          "topic": "Linux",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "linux",
+          "lab"
+        ]
+      },
+      {
+        "id": "lab-6.1-4",
+        "section": "SEC401.6",
+        "domain": "Linux",
+        "q": "Mode shown: drwxrwxrwt on a shared directory. What does the trailing t represent?",
+        "choices": [
+          "Setuid execution as root",
+          "Read-only filesystem status",
+          "Sticky-bit deletion restrictions",
+          "Mandatory TLS encryption"
+        ],
+        "answer": 2,
+        "why": "The sticky bit restricts who may remove entries in a shared writable directory.",
+        "cue": "Permissions artifact sticky bit",
+        "origin": "v0.3 original",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "Permissions artifact sticky bit"
+        ],
+        "bookCue": {
+          "section": "SEC401.6",
+          "topic": "Linux",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "linux",
+          "lab"
+        ]
+      },
+      {
+        "id": "lab-6.1-5",
+        "section": "SEC401.6",
+        "domain": "Linux",
+        "q": "A regular file is -rw-r-----. What is its octal mode before considering special bits or ACLs?",
+        "choices": [
+          "640",
+          "604",
+          "777",
+          "750"
+        ],
+        "answer": 0,
+        "why": "Owner rw is 6, group r is 4, others none is 0.",
+        "cue": "Permissions artifact octal",
+        "origin": "v0.3 original",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "Permissions artifact octal"
+        ],
+        "bookCue": {
+          "section": "SEC401.6",
+          "topic": "Linux",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "linux",
+          "lab"
+        ]
+      }
+    ],
+    "description": "Independent guided workflow practice; not an official SANS lab or a live virtual machine."
+  },
+  {
+    "lab": "6.2",
+    "title": "Linux Containers",
+    "section": "SEC401.6",
+    "domain": "Containers",
+    "steps": [
+      {
+        "q": "Why can container-local logs be fragile evidence?",
+        "choices": [
+          "Containers are ephemeral and may be destroyed or recreated",
+          "Containers cannot write logs",
+          "Linux has no logging",
+          "Logs are always encrypted"
+        ],
+        "answer": 0,
+        "why": "Evidence stored only inside a short-lived container may disappear with it.",
+        "cue": "container logging",
+        "id": "lab-6.2-0",
+        "section": "SEC401.6",
+        "domain": "Containers",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "container logging"
+        ],
+        "bookCue": {
+          "section": "SEC401.6",
+          "topic": "Containers",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "containers",
+          "lab"
+        ]
+      },
+      {
+        "q": "What is a central security distinction between a container and a VM?",
+        "choices": [
+          "Containers share the host kernel; VMs generally run separate guest kernels",
+          "Containers have no processes",
+          "VMs have no filesystems",
+          "Containers cannot be networked"
+        ],
+        "answer": 0,
+        "why": "Shared-kernel architecture changes the isolation boundary.",
+        "cue": "containers vs VMs",
+        "id": "lab-6.2-1",
+        "section": "SEC401.6",
+        "domain": "Containers",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "containers vs VMs"
+        ],
+        "bookCue": {
+          "section": "SEC401.6",
+          "topic": "Containers",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "containers",
+          "lab"
+        ]
+      },
+      {
+        "q": "What is the better logging design for important container workloads?",
+        "choices": [
+          "Persist or forward logs outside the ephemeral container",
+          "Store logs only in /tmp inside the container",
+          "Disable logs to save space",
+          "Rely on memory only"
+        ],
+        "answer": 0,
+        "why": "Externalization preserves logs across container lifecycle events.",
+        "cue": "container log persistence",
+        "id": "lab-6.2-2",
+        "section": "SEC401.6",
+        "domain": "Containers",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "container log persistence"
+        ],
+        "bookCue": {
+          "section": "SEC401.6",
+          "topic": "Containers",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "containers",
+          "lab"
+        ]
+      },
+      {
+        "q": "In Linux Containers, which principle should guide your workflow?",
+        "choices": [
+          "Container lifecycle design directly affects evidence retention and incident response",
+          "Containers eliminate host risk",
+          "Image scanning replaces logging",
+          "Docker logs are automatically permanent"
+        ],
+        "answer": 0,
+        "why": "Security architecture must account for container ephemerality and host dependencies.",
+        "cue": "container security",
+        "id": "lab-6.2-3",
+        "section": "SEC401.6",
+        "domain": "Containers",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "container security"
+        ],
+        "bookCue": {
+          "section": "SEC401.6",
+          "topic": "Containers",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "containers",
+          "lab"
+        ]
+      },
+      {
+        "id": "lab-6.2-4",
+        "section": "SEC401.6",
+        "domain": "Containers",
+        "q": "Container config shows Privileged=true and a read/write host-root mount. What should be prioritized?",
+        "choices": [
+          "Add a friendly container name",
+          "Expose more ports for visibility",
+          "Assume container isolation is sufficient",
+          "Remove excessive privilege and host access unless explicitly required and controlled"
+        ],
+        "answer": 3,
+        "why": "Privileged mode and broad host mounts undermine isolation and can expose the host to container compromise.",
+        "cue": "Container privilege review",
+        "origin": "v0.3 original",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "Container privilege review"
+        ],
+        "bookCue": {
+          "section": "SEC401.6",
+          "topic": "Containers",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "containers",
+          "lab"
+        ]
+      },
+      {
+        "id": "lab-6.2-5",
+        "section": "SEC401.6",
+        "domain": "Containers",
+        "q": "An image tag changed overnight without an application change request. What control improves reproducibility?",
+        "choices": [
+          "Reuse a public administrator password",
+          "Disable image provenance checks",
+          "Trust every latest tag",
+          "Pin and verify the intended image digest through the release process"
+        ],
+        "answer": 3,
+        "why": "Tags can move. Verified digest selection ties deployment to specific content and requires deliberate updates.",
+        "cue": "Container supply-chain control",
+        "origin": "v0.3 original",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "Container supply-chain control"
+        ],
+        "bookCue": {
+          "section": "SEC401.6",
+          "topic": "Containers",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "containers",
+          "lab"
+        ]
+      }
+    ],
+    "description": "Independent guided workflow practice; not an official SANS lab or a live virtual machine."
+  },
+  {
+    "lab": "6.3",
+    "title": "Linux Logging and Auditing",
+    "section": "SEC401.6",
+    "domain": "Linux",
+    "steps": [
+      {
+        "q": "Which subsystem records configured security-relevant Linux kernel events?",
+        "choices": [
+          "auditd",
+          "DHCP",
+          "Kerberos",
+          "NAT"
+        ],
+        "answer": 0,
+        "why": "auditd provides purpose-built Linux security auditing.",
+        "cue": "auditd",
+        "id": "lab-6.3-0",
+        "section": "SEC401.6",
+        "domain": "Linux",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "auditd"
+        ],
+        "bookCue": {
+          "section": "SEC401.6",
+          "topic": "Linux",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "linux",
+          "lab"
+        ]
+      },
+      {
+        "q": "Which command searches audit records?",
+        "choices": [
+          "ausearch",
+          "chmod",
+          "chown",
+          "Get-WinEvent"
+        ],
+        "answer": 0,
+        "why": "ausearch searches Linux audit logs.",
+        "cue": "ausearch",
+        "id": "lab-6.3-1",
+        "section": "SEC401.6",
+        "domain": "Linux",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "ausearch"
+        ],
+        "bookCue": {
+          "section": "SEC401.6",
+          "topic": "Linux",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "linux",
+          "lab"
+        ]
+      },
+      {
+        "q": "How does audit logging differ from many traditional system logs?",
+        "choices": [
+          "It is intentionally designed to capture security-relevant events according to audit policy",
+          "It contains only application crashes",
+          "It cannot record process activity",
+          "It is a packet capture"
+        ],
+        "answer": 0,
+        "why": "auditd provides configurable kernel-level audit evidence rather than only troubleshooting logs.",
+        "cue": "Linux auditing",
+        "id": "lab-6.3-2",
+        "section": "SEC401.6",
+        "domain": "Linux",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "Linux auditing"
+        ],
+        "bookCue": {
+          "section": "SEC401.6",
+          "topic": "Linux",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "linux",
+          "lab"
+        ]
+      },
+      {
+        "q": "What additional detection concept appears in the lab?",
+        "choices": [
+          "Sigma-style shared detection rules",
+          "Group Policy templates",
+          "WPA Enterprise",
+          "RAID parity"
+        ],
+        "answer": 0,
+        "why": "The lab links host audit evidence with reusable detection logic.",
+        "cue": "Sigma rules",
+        "id": "lab-6.3-3",
+        "section": "SEC401.6",
+        "domain": "Linux",
+        "origin": "v0.2 baseline",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "Sigma rules"
+        ],
+        "bookCue": {
+          "section": "SEC401.6",
+          "topic": "Linux",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "linux",
+          "lab"
+        ]
+      },
+      {
+        "id": "lab-6.3-4",
+        "section": "SEC401.6",
+        "domain": "Linux",
+        "q": "Synthetic auth log: 'Accepted publickey for ops from 203.0.113.20'. What does it establish?",
+        "choices": [
+          "That the person was definitely the account owner",
+          "An SSH public-key authentication success was logged for ops",
+          "That no commands were run afterward",
+          "That the remote address is trusted"
+        ],
+        "answer": 1,
+        "why": "A success event is evidence of an authentication result, not proof that credentials were used by their rightful owner.",
+        "cue": "Linux auth log interpretation",
+        "origin": "v0.3 original",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "Linux auth log interpretation"
+        ],
+        "bookCue": {
+          "section": "SEC401.6",
+          "topic": "Linux",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "linux",
+          "lab"
+        ]
+      },
+      {
+        "id": "lab-6.3-5",
+        "section": "SEC401.6",
+        "domain": "Linux",
+        "q": "Audit logs show a policy denial just before a daemon failure. What is an appropriate lab workflow?",
+        "choices": [
+          "Turn off all security controls permanently",
+          "Correlate the denial with the service action and investigate a narrow fix",
+          "Delete the audit logs",
+          "Make the entire filesystem world-writable"
+        ],
+        "answer": 1,
+        "why": "Use timestamps, subject, object, and requested permission to understand whether policy blocked a legitimate operation.",
+        "cue": "Linux audit correlation",
+        "origin": "v0.3 original",
+        "kind": "lab",
+        "difficulty": "applied",
+        "status": "published",
+        "indexCues": [
+          "Linux audit correlation"
+        ],
+        "bookCue": {
+          "section": "SEC401.6",
+          "topic": "Linux",
+          "edition": null,
+          "page": null,
+          "mapping": "public-outline-topic-cue; verify against your edition"
+        },
+        "tags": [
+          "linux",
+          "lab"
+        ]
+      }
+    ],
+    "description": "Independent guided workflow practice; not an official SANS lab or a live virtual machine."
+  }
+]

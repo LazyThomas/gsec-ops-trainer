@@ -1,0 +1,33 @@
+{
+  "id": 577,
+  "section": "SEC401.6",
+  "domain": "Acronyms",
+  "q": "PLACEHOLDER: original question prompt",
+  "choices": [
+    "Correct answer",
+    "Plausible distractor 1",
+    "Plausible distractor 2",
+    "Plausible distractor 3"
+  ],
+  "answer": 0,
+  "why": "PLACEHOLDER: explain the answer and the relevant limits",
+  "cue": "PLACEHOLDER",
+  "origin": "future original authoring",
+  "kind": "acronym",
+  "difficulty": "foundation",
+  "status": "draft-not-loaded",
+  "indexCues": [
+    "PLACEHOLDER"
+  ],
+  "bookCue": {
+    "section": "SEC401.6",
+    "topic": "Acronyms",
+    "edition": null,
+    "page": null,
+    "mapping": "public-outline-topic-cue; verify against your edition"
+  },
+  "tags": [
+    "acronyms",
+    "acronym"
+  ]
+}

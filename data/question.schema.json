@@ -1,0 +1,140 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GSEC Ops Trainer question",
+  "type": "object",
+  "required": [
+    "id",
+    "section",
+    "domain",
+    "q",
+    "choices",
+    "answer",
+    "why",
+    "cue",
+    "indexCues",
+    "bookCue",
+    "kind",
+    "difficulty",
+    "tags",
+    "origin",
+    "status"
+  ],
+  "properties": {
+    "id": {
+      "type": [
+        "integer",
+        "string"
+      ]
+    },
+    "section": {
+      "enum": [
+        "SEC401.1",
+        "SEC401.2",
+        "SEC401.3",
+        "SEC401.4",
+        "SEC401.5",
+        "SEC401.6"
+      ]
+    },
+    "domain": {
+      "type": "string",
+      "minLength": 1
+    },
+    "q": {
+      "type": "string",
+      "minLength": 10
+    },
+    "choices": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "answer": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 3
+    },
+    "why": {
+      "type": "string",
+      "minLength": 10
+    },
+    "cue": {
+      "type": "string"
+    },
+    "indexCues": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "bookCue": {
+      "type": "object",
+      "required": [
+        "section",
+        "topic",
+        "edition",
+        "page",
+        "mapping"
+      ],
+      "properties": {
+        "section": {
+          "type": "string"
+        },
+        "topic": {
+          "type": "string"
+        },
+        "edition": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "page": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "mapping": {
+          "type": "string"
+        }
+      }
+    },
+    "kind": {
+      "enum": [
+        "concept",
+        "scenario",
+        "port",
+        "command",
+        "acronym",
+        "lab"
+      ]
+    },
+    "difficulty": {
+      "enum": [
+        "foundation",
+        "applied",
+        "advanced"
+      ]
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "origin": {
+      "type": "string"
+    },
+    "status": {
+      "const": "published"
+    }
+  }
+}

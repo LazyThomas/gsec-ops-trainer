@@ -1,0 +1,85 @@
+{
+  "targetStandardQuestions": 1200,
+  "currentStandardQuestions": 576,
+  "method": "Add independently authored applied questions, not templated paraphrases; review against your course edition.",
+  "sections": [
+    {
+      "section": "SEC401.1",
+      "title": "Network Security and Cloud Essentials",
+      "published": 112,
+      "target": 200,
+      "remaining": 88,
+      "plannedFocus": [
+        "additional multi-step evidence interpretation",
+        "troubleshooting and control tradeoffs",
+        "edition-specific gaps confirmed by the learner"
+      ],
+      "status": "planned-not-published"
+    },
+    {
+      "section": "SEC401.2",
+      "title": "Defense in Depth",
+      "published": 91,
+      "target": 200,
+      "remaining": 109,
+      "plannedFocus": [
+        "additional multi-step evidence interpretation",
+        "troubleshooting and control tradeoffs",
+        "edition-specific gaps confirmed by the learner"
+      ],
+      "status": "planned-not-published"
+    },
+    {
+      "section": "SEC401.3",
+      "title": "Vulnerability Management and Response",
+      "published": 92,
+      "target": 200,
+      "remaining": 108,
+      "plannedFocus": [
+        "additional multi-step evidence interpretation",
+        "troubleshooting and control tradeoffs",
+        "edition-specific gaps confirmed by the learner"
+      ],
+      "status": "planned-not-published"
+    },
+    {
+      "section": "SEC401.4",
+      "title": "Data Security Technologies",
+      "published": 88,
+      "target": 200,
+      "remaining": 112,
+      "plannedFocus": [
+        "additional multi-step evidence interpretation",
+        "troubleshooting and control tradeoffs",
+        "edition-specific gaps confirmed by the learner"
+      ],
+      "status": "planned-not-published"
+    },
+    {
+      "section": "SEC401.5",
+      "title": "Windows and Azure Security",
+      "published": 98,
+      "target": 200,
+      "remaining": 102,
+      "plannedFocus": [
+        "additional multi-step evidence interpretation",
+        "troubleshooting and control tradeoffs",
+        "edition-specific gaps confirmed by the learner"
+      ],
+      "status": "planned-not-published"
+    },
+    {
+      "section": "SEC401.6",
+      "title": "Containers, Linux, and Mac Security",
+      "published": 95,
+      "target": 200,
+      "remaining": 105,
+      "plannedFocus": [
+        "additional multi-step evidence interpretation",
+        "troubleshooting and control tradeoffs",
+        "edition-specific gaps confirmed by the learner"
+      ],
+      "status": "planned-not-published"
+    }
+  ]
+}
