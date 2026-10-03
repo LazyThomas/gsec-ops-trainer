@@ -65,13 +65,14 @@ function exec(){if(!current)return;const input=$('clCommand');const cmd=normaliz
 function start(id){current=tasks.find(x=>x.id===id);if(!current)return;attempts=0;usedHint=false;history=[];$('clWorkbench').classList.remove('hidden');
  $('clTitle').textContent=current.title;$('clDomain').textContent=current.domain;$('clObjective').textContent=current.objective;
  $('clTerminal').textContent='Offline synthetic exercise · Not a real shell or virtual machine.\nType help for available commands.\n';
- $('clCommand').value='';$('clAnswer').value='';$('clFeedback').textContent='';$('clHint').textContent='';$('clNext').classList.add('hidden');$('clAnswer').disabled=false;$('clCheck').disabled=false;
+ $('clCommand').value='';$('clAnswer').value='';$('clFeedback').textContent='';$('clHint').textContent='';$('clNext').classList.add('hidden');$('clReveal').disabled=true;$('clReveal').textContent='Show answer';$('clSolution').textContent='';$('clAnswer').disabled=false;$('clCheck').disabled=false;
  $('clWorkbench').scrollIntoView({behavior:'smooth',block:'start'});$('clCommand').focus()}
 function submit(){if(!current)return;const given=normalize($('clAnswer').value);if(!given){$('clFeedback').textContent='Enter a finding first.';return}
- attempts++;const ok=current.accept.some(x=>normalize(x)===given);persist(current.id,ok);
+ attempts++;$('clReveal').disabled=false;const ok=current.accept.some(x=>normalize(x)===given);persist(current.id,ok);
  if(ok){$('clFeedback').textContent='PASS — verified finding. '+(usedHint?'Hint used. ':'')+'Attempts: '+attempts+'.';$('clCheck').disabled=true;$('clAnswer').disabled=true;$('clNext').classList.remove('hidden')}
  else $('clFeedback').textContent='Not verified. Review the output and try again. Attempts: '+attempts+'.';
  renderTasks()}
+function revealAnswer(){if(!current||attempts<1)return;$('clSolution').textContent='Correct answer: '+current.answer+'\nReview the evidence above, then repeat this challenge to earn a pass without assistance.';$('clReveal').textContent='Answer shown';$('clReveal').disabled=true;}
 function renderTasks(){const wrap=$('clTasks');wrap.replaceChildren();const p=store(),passed=tasks.filter(t=>p[t.id]?.passed).length;
  $('clProgress').textContent=passed+' / '+tasks.length+' practical challenges passed on this device';
  tasks.forEach(t=>{const card=element('article',undefined,'card cl-task');card.append(element('span',t.domain,'eyebrow'),element('h3',t.title),element('p',t.objective));
@@ -85,9 +86,9 @@ function init(){const labs=$('labs');if(!labs||$('clEntry'))return;
  const domain=element('span',undefined,'eyebrow');domain.id='clDomain';const title=element('h2');title.id='clTitle';const obj=element('p');obj.id='clObjective';wb.append(domain,title,obj);
  const terminal=element('div',undefined,'cl-terminal');terminal.id='clTerminal';terminal.setAttribute('role','log');terminal.setAttribute('aria-live','polite');wb.append(terminal);
  const lbl=element('label','Simulated command (try help)');lbl.htmlFor='clCommand';const cmd=element('input');cmd.id='clCommand';cmd.autocomplete='off';cmd.spellcheck=false;wb.append(lbl,cmd);
- const run=element('button','Run command');run.className='primary';run.onclick=exec;const hint=element('button','Show hint');const next=element('button','Return to challenges');next.id='clNext';next.classList.add('hidden');next.onclick=()=>{wb.classList.add('hidden');entry.scrollIntoView({behavior:'smooth'})};
+ const run=element('button','Run command');run.className='primary';run.onclick=exec;const hint=element('button','Show hint');const reveal=element('button','Show answer');reveal.id='clReveal';reveal.disabled=true;reveal.onclick=revealAnswer;const next=element('button','Return to challenges');next.id='clNext';next.classList.add('hidden');next.onclick=()=>{wb.classList.add('hidden');entry.scrollIntoView({behavior:'smooth'})};
  const hintText=element('p');hintText.id='clHint';hint.onclick=()=>{usedHint=true;hintText.textContent=current?.hint||''};
- const actions=element('div',undefined,'cl-actions');actions.append(run,hint,next);wb.append(actions,hintText);
+ const actions=element('div',undefined,'cl-actions');actions.append(run,hint,reveal,next);wb.append(actions,hintText);const solution=element('p');solution.id='clSolution';solution.setAttribute('role','status');wb.append(solution);
  const answerLabel=element('label','Verified finding (type the requested answer)');answerLabel.htmlFor='clAnswer';const answer=element('input');answer.id='clAnswer';answer.autocomplete='off';answer.spellcheck=false;const check=element('button','Check finding','primary');check.id='clCheck';check.onclick=submit;const fb=element('p');fb.id='clFeedback';fb.setAttribute('role','status');
  wb.append(answerLabel,answer,check,fb);cmd.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();exec()}});answer.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();submit()}});
  labs.insertBefore(entry,$('missionList'));labs.insertBefore(wb,$('missionList'));renderTasks();
