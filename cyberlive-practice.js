@@ -47,7 +47,7 @@ const tasks=[
  ['netstat -ano','TCP 0.0.0.0:3389 0.0.0.0:0 LISTENING 1016']]}
 ];
 tasks.push(...(window.GSEC_PRACTICAL_BANK||[]));
-let current=null,attempts=0,usedHint=false,history=[];
+let current=null,attempts=0,usedHint=false,usedReveal=false,history=[];
 const $=id=>document.getElementById(id);
 const style=document.createElement('style');
 style.textContent='.cl-entry{margin-bottom:18px;border-color:#597e9d}.cl-workbench{margin-top:20px}.cl-terminal{height:260px;overflow:auto;background:#070e15;border:1px solid #587087;border-radius:10px;padding:15px;color:#e4f6e9;font:15px/1.55 ui-monospace,SFMono-Regular,Consolas,monospace;white-space:pre-wrap;overflow-wrap:anywhere}.cl-workbench input{width:100%;font:16px ui-monospace,monospace}.cl-workbench label{display:block;margin:16px 0 7px}.cl-actions{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}.cl-progress{margin-bottom:16px}.cl-feedback{white-space:pre-wrap;line-height:1.5;margin:10px 0;color:#ecf2f8}.cl-task button{min-width:120px}.cl-workbench h2{margin:12px 0}';
@@ -62,17 +62,17 @@ function exec(){if(!current)return;const input=$('clCommand');const cmd=normaliz
  if(cmd==='clear'){ $('clTerminal').textContent='';return}
  const found=current.commands.find(x=>normalize(x[0])===cmd);
  output(found?found[1]:'Command not available in this simulation. Enter help for supported commands.');input.focus()}
-function start(id){current=tasks.find(x=>x.id===id);if(!current)return;attempts=0;usedHint=false;history=[];$('clWorkbench').classList.remove('hidden');
+function start(id){current=tasks.find(x=>x.id===id);if(!current)return;attempts=0;usedHint=false;usedReveal=false;history=[];$('clWorkbench').classList.remove('hidden');
  $('clTitle').textContent=current.title;$('clDomain').textContent=current.domain;$('clObjective').textContent=current.objective;
  $('clTerminal').textContent='Offline synthetic exercise · Not a real shell or virtual machine.\nType help for available commands.\n';
- $('clCommand').value='';$('clAnswer').value='';$('clFeedback').textContent='';$('clHint').textContent='';$('clNext').classList.add('hidden');$('clReveal').disabled=true;$('clReveal').textContent='Show answer';$('clSolution').textContent='';$('clAnswer').disabled=false;$('clCheck').disabled=false;
+ $('clCommand').value='';$('clAnswer').value='';$('clFeedback').textContent='';$('clHint').textContent='';$('clNext').classList.add('hidden');$('clAdvance').classList.add('hidden');$('clReveal').disabled=true;$('clReveal').textContent='Show answer';$('clSolution').textContent='';$('clAnswer').disabled=false;$('clCheck').disabled=false;
  $('clWorkbench').scrollIntoView({behavior:'smooth',block:'start'});$('clCommand').focus()}
 function submit(){if(!current)return;const given=normalize($('clAnswer').value);if(!given){$('clFeedback').textContent='Enter a finding first.';return}
- attempts++;$('clReveal').disabled=false;const ok=current.accept.some(x=>normalize(x)===given);persist(current.id,ok);
- if(ok){$('clFeedback').textContent='PASS — verified finding. '+(usedHint?'Hint used. ':'')+'Attempts: '+attempts+'.';$('clCheck').disabled=true;$('clAnswer').disabled=true;$('clNext').classList.remove('hidden')}
+ attempts++;$('clReveal').disabled=false;$('clAdvance').classList.remove('hidden');const ok=current.accept.some(x=>normalize(x)===given);persist(current.id,ok&&!usedReveal);
+ if(ok){$('clFeedback').textContent=(usedReveal?'REVIEW COMPLETE — answer was revealed; no pass credit. ':'PASS — verified finding. ')+(usedHint?'Hint used. ':'')+'Attempts: '+attempts+'.';$('clCheck').disabled=true;$('clAnswer').disabled=true;$('clNext').classList.remove('hidden')}
  else $('clFeedback').textContent='Not verified. Review the output and try again. Attempts: '+attempts+'.';
  renderTasks()}
-function revealAnswer(){if(!current||attempts<1)return;$('clSolution').textContent='Correct answer: '+current.answer+'\nReview the evidence above, then repeat this challenge to earn a pass without assistance.';$('clReveal').textContent='Answer shown';$('clReveal').disabled=true;}
+function revealAnswer(){if(!current||attempts<1)return;usedReveal=true;const evidence=current.commands.find(c=>normalize(c[0])!=='help')||current.commands[0];const lines=String(evidence[1]).split('\n');const matching=lines.find(line=>line.toLowerCase().includes(String(current.answer).toLowerCase()))||lines[0];$('clSolution').textContent='CORRECT ANSWER: '+current.answer+'\n\nSTEP 1 — Understand the objective\n'+current.objective+'\n\nSTEP 2 — Run an investigation command\n'+evidence[0]+'\nThis command retrieves the relevant synthetic '+current.domain.toLowerCase()+' evidence. Commands execute only inside the simulator.\n\nSTEP 3 — Read the evidence\n'+matching+'\nLocate the value requested by the objective; distinguish it from unrelated output.\n\nSTEP 4 — Verify the finding\nSubmit '+current.answer+'. Answer-revealed attempts do not earn pass credit. Repeat independently to qualify.';$('clReveal').textContent='Answer shown';$('clReveal').disabled=true;}
 function renderTasks(){const wrap=$('clTasks');wrap.replaceChildren();const p=store(),passed=tasks.filter(t=>p[t.id]?.passed).length;
  $('clProgress').textContent=passed+' / '+tasks.length+' practical challenges passed on this device';
  tasks.forEach(t=>{const card=element('article',undefined,'card cl-task');card.append(element('span',t.domain,'eyebrow'),element('h3',t.title),element('p',t.objective));
@@ -86,9 +86,9 @@ function init(){const labs=$('labs');if(!labs||$('clEntry'))return;
  const domain=element('span',undefined,'eyebrow');domain.id='clDomain';const title=element('h2');title.id='clTitle';const obj=element('p');obj.id='clObjective';wb.append(domain,title,obj);
  const terminal=element('div',undefined,'cl-terminal');terminal.id='clTerminal';terminal.setAttribute('role','log');terminal.setAttribute('aria-live','polite');wb.append(terminal);
  const lbl=element('label','Simulated command (try help)');lbl.htmlFor='clCommand';const cmd=element('input');cmd.id='clCommand';cmd.autocomplete='off';cmd.spellcheck=false;wb.append(lbl,cmd);
- const run=element('button','Run command');run.className='primary';run.onclick=exec;const hint=element('button','Show hint');const reveal=element('button','Show answer');reveal.id='clReveal';reveal.disabled=true;reveal.onclick=revealAnswer;const next=element('button','Return to challenges');next.id='clNext';next.classList.add('hidden');next.onclick=()=>{wb.classList.add('hidden');entry.scrollIntoView({behavior:'smooth'})};
+ const run=element('button','Run command');run.className='primary';run.onclick=exec;const hint=element('button','Show hint');const reveal=element('button','Show answer');reveal.id='clReveal';reveal.disabled=true;reveal.onclick=revealAnswer;const advance=element('button','Next lab');advance.id='clAdvance';advance.classList.add('hidden');advance.onclick=()=>{const index=tasks.findIndex(t=>t.id===current?.id);start(tasks[(index+1)%tasks.length].id)};const next=element('button','Return to challenges');next.id='clNext';next.classList.add('hidden');next.onclick=()=>{wb.classList.add('hidden');entry.scrollIntoView({behavior:'smooth'})};
  const hintText=element('p');hintText.id='clHint';hint.onclick=()=>{usedHint=true;hintText.textContent=current?.hint||''};
- const actions=element('div',undefined,'cl-actions');actions.append(run,hint,reveal,next);wb.append(actions,hintText);const solution=element('p');solution.id='clSolution';solution.setAttribute('role','status');wb.append(solution);
+ const actions=element('div',undefined,'cl-actions');actions.append(run,hint,reveal,advance,next);wb.append(actions,hintText);const solution=element('p');solution.id='clSolution';solution.setAttribute('role','status');wb.append(solution);
  const answerLabel=element('label','Verified finding (type the requested answer)');answerLabel.htmlFor='clAnswer';const answer=element('input');answer.id='clAnswer';answer.autocomplete='off';answer.spellcheck=false;const check=element('button','Check finding','primary');check.id='clCheck';check.onclick=submit;const fb=element('p');fb.id='clFeedback';fb.setAttribute('role','status');
  wb.append(answerLabel,answer,check,fb);cmd.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();exec()}});answer.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();submit()}});
  labs.insertBefore(entry,$('missionList'));labs.insertBefore(wb,$('missionList'));renderTasks();
