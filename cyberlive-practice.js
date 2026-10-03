@@ -46,6 +46,7 @@ const tasks=[
  ['get-netfirewalladdressfilter -associatednetfirewallrule rdp-legacy','RemoteAddress : 0.0.0.0/0'],
  ['netstat -ano','TCP 0.0.0.0:3389 0.0.0.0:0 LISTENING 1016']]}
 ];
+tasks.push(...(window.GSEC_PRACTICAL_BANK||[]));
 let current=null,attempts=0,usedHint=false,history=[];
 const $=id=>document.getElementById(id);
 const style=document.createElement('style');
