@@ -1,4 +1,4 @@
-const CACHE='gsec-ops-trainer-v0.3.4';
+const CACHE='gsec-ops-trainer-v0.3.5';
 const PREFIX='gsec-ops-trainer-';
 const ASSETS=['./','./index.html','./styles.css','./app.js','./cyberlive-practice.js','./practical-bank.js','./data/questions.json','./data/labs.json','./data/sections.json','./manifest.webmanifest','./icon-192.png','./icon-512.png','./README.md'];
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)).then(()=>self.skipWaiting())));
@@ -6,8 +6,11 @@ self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=
 self.addEventListener('fetch',event=>{
  const url=new URL(event.request.url);
  if(event.request.method!=='GET'||url.origin!==self.location.origin||!url.href.startsWith(self.registration.scope))return;
- event.respondWith(caches.open(CACHE).then(async cache=>{
+ event.respondWith((async()=>{
+  const cache=await caches.open(CACHE);
+  const dynamic=event.request.mode==='navigate'||/\.(html|js|css)$/.test(url.pathname);
+  if(dynamic){try{const fresh=await fetch(event.request,{cache:'no-store'});if(fresh.ok)await cache.put(event.request,fresh.clone());return fresh;}catch(e){return (await cache.match(event.request,{ignoreSearch:true}))||(event.request.mode==='navigate'?await cache.match('./index.html'):Response.error());}}
   const cached=await cache.match(event.request,{ignoreSearch:true});if(cached)return cached;
-  try{return await fetch(event.request);}catch(error){if(event.request.mode==='navigate')return cache.match('./index.html');throw error;}
- }));
+  try{const fresh=await fetch(event.request);if(fresh.ok)await cache.put(event.request,fresh.clone());return fresh;}catch(e){return Response.error();}
+ })());
 });
