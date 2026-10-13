@@ -62,7 +62,7 @@ function exec(){if(!current)return;const input=$('clCommand');const cmd=normaliz
  if(cmd==='clear'){ $('clTerminal').textContent='';return}
  const found=current.commands.find(x=>normalize(x[0])===cmd);
  output(found?found[1]:'Command not available in this simulation. Enter help for supported commands.');input.focus()}
-function start(id){current=tasks.find(x=>x.id===id);if(!current)return;attempts=0;usedHint=false;usedReveal=false;history=[];$('clWorkbench').classList.remove('hidden');
+function start(id){document.querySelectorAll('.cl-command-explanations').forEach(e=>e.remove());current=tasks.find(x=>x.id===id);if(!current)return;attempts=0;usedHint=false;usedReveal=false;history=[];$('clWorkbench').classList.remove('hidden');
  $('clTitle').textContent=current.title;$('clDomain').textContent=current.domain;$('clObjective').textContent=current.objective;
  $('clTerminal').textContent='Offline synthetic exercise · Not a real shell or virtual machine.\nType help for available commands.\n';
  $('clCommand').value='';$('clAnswer').value='';$('clFeedback').textContent='';$('clHint').textContent='';$('clNext').classList.add('hidden');$('clAdvance').classList.remove('hidden');$('clReveal').disabled=false;$('clReveal').textContent='Show answer';$('clSolution').textContent='';$('clAnswer').disabled=false;$('clCheck').disabled=false;
@@ -72,7 +72,34 @@ function submit(){if(!current)return;const given=normalize($('clAnswer').value);
  if(ok){$('clFeedback').textContent=(usedReveal?'REVIEW COMPLETE — answer was revealed; no pass credit. ':'PASS — verified finding. ')+(usedHint?'Hint used. ':'')+'Attempts: '+attempts+'.';$('clCheck').disabled=true;$('clAnswer').disabled=true;$('clNext').classList.remove('hidden')}
  else $('clFeedback').textContent='Not verified. Review the output and try again. Attempts: '+attempts+'.';
  renderTasks()}
-function revealAnswer(){if(!current)return;usedReveal=true;const evidence=current.commands.find(c=>normalize(c[0])!=='help')||current.commands[0];const lines=String(evidence[1]).split('\n');const matching=lines.find(line=>line.toLowerCase().includes(String(current.answer).toLowerCase()))||lines[0];$('clSolution').textContent='CORRECT ANSWER: '+current.answer+'\n\nSTEP 1 — Understand the objective\n'+current.objective+'\n\nSTEP 2 — Run an investigation command\n'+evidence[0]+'\nThis command retrieves the relevant synthetic '+current.domain.toLowerCase()+' evidence. Commands execute only inside the simulator.\n\nSTEP 3 — Read the evidence\n'+matching+'\nLocate the value requested by the objective; distinguish it from unrelated output.\n\nSTEP 4 — Verify the finding\nSubmit '+current.answer+'. Answer-revealed attempts do not earn pass credit. Repeat independently to qualify.';$('clReveal').textContent='Answer shown';$('clReveal').disabled=true;}
+function revealAnswer(){if(!current)return;usedReveal=true;const evidence=current.commands.find(c=>normalize(c[0])!=='help')||current.commands[0];const lines=String(evidence[1]).split('\n');const matching=lines.find(line=>line.toLowerCase().includes(String(current.answer).toLowerCase()))||lines[0];$('clSolution').textContent='CORRECT ANSWER: '+current.answer+'\n\nSTEP 1 — Understand the objective\n'+current.objective+'\n\nSTEP 2 — Run an investigation command\n'+evidence[0]+'\nThis command retrieves the relevant synthetic '+current.domain.toLowerCase()+' evidence. Commands execute only inside the simulator.\n\nSTEP 3 — Read the evidence\n'+matching+'\nLocate the value requested by the objective; distinguish it from unrelated output.\n\nSTEP 4 — Verify the finding\nSubmit '+current.answer+'. Answer-revealed attempts do not earn pass credit. Repeat independently to qualify.';$('clReveal').textContent='Answer shown';$('clReveal').disabled=true;
+ const solution=$('clSolution');
+ const panel=element('div',undefined,'cl-command-explanations');
+ panel.append(element('h3','Command explanations — what each command and option does'));
+ const library=typeof allCommandLessons==='function'?allCommandLessons():[];
+ for(const [command,simulatedOutput] of current.commands.filter(c=>normalize(c[0])!=='help')){
+  const d=element('details');d.className='command-lesson';
+  d.append(element('summary',command));
+  const matched=library.find(l=>normalize(l.command)===normalize(command));
+  d.append(element('h4','Full command'),element('pre',command));
+  const parts=command.match(/(?:[^\\s"']+|"[^"]*"|'[^']*')+/g)||[];
+  const basics={
+   'nmap':'Network Mapper: scans explicitly authorized targets.','-sT':'TCP connect scan; uses the operating system TCP connection API.','-Pn':'Skip host-discovery probes and treat the target as online.','-n':'Disable DNS resolution.','-sV':'Probe open ports for service/version information.','-p':'Select the specified ports.',
+   'ss':'Inspect local sockets.','-l':'Show listening sockets.','-t':'Restrict to TCP sockets.','-u':'Restrict to UDP sockets.','-a':'Show all sockets.','-r':'Read from a saved input where supported; meaning depends on the tool.','-nn':'Suppress both address and service-name resolution in tcpdump.','-i':'Select an interface in tcpdump; ignore case in grep.','-w':'Write packet capture to a file in tcpdump.','-c':'Stop after a specified packet count in tcpdump.',
+   'dig':'Query DNS records.','A':'Request IPv4 address records in a DNS query.','nslookup':'Query DNS name-resolution results.','cat':'Print file contents.','ls':'List directory entries.','-la':'Long listing including hidden entries.','stat':'Display file metadata, including mode and ownership.','grep':'Search text for matching patterns.','-i':'Case-insensitive search in grep.','-n':'Show matching line numbers in grep.','-E':'Use extended regular expressions in grep.','-R':'Search directories recursively in grep.','journalctl':'Query the systemd journal.','--since':'Restrict journal results to the specified time.','--no-pager':'Print output directly without a pager.','tcpdump':'Capture or read packets using Berkeley Packet Filter expressions.','-X':'Show packet contents as hex and ASCII in tcpdump.',
+   'whoami':'Show the current effective identity.','id':'Show Unix user/group identity.','find':'Find files using selection predicates.','-type':'Filter by filesystem object type.','-perm':'Match file permission bits.','sha256sum':'Compute SHA-256 digest.','file':'Identify file content type.','strings':'Extract printable strings from binary data.','curl':'Make an HTTP request.','-I':'Request headers only with curl.','-sS':'Suppress progress but report errors in curl.','-X':'Specify the HTTP method with curl.','docker':'Manage or inspect containers.','inspect':'Show detailed container metadata.','logs':'Show container logs.','exec':'Run a command inside a container.','-V':'Show version for tools supporting this flag.'};
+  const explanation=matched?.meaning||'This simulator accepts the exact command shown. The executable determines the operation; options adjust scope, format, or filtering. Use the breakdown below and consult the real tool help for version-specific details.';
+  d.append(element('h4','Purpose and reasoning'),element('p',explanation));
+  const flags=element('ul');
+  for(const part of parts){const description=basics[part]||(part.startsWith('-')?'Option or argument: interpret according to this command’s own help and context.':null);if(description){const li=element('li');li.append(element('code',part),document.createTextNode(' — '+description));flags.append(li)}}
+  if(flags.childNodes.length){d.append(element('h4','Command components and options'),flags)}
+  d.append(element('h4','Simulated output'),element('pre',simulatedOutput));
+  d.append(element('h4','What to look for'),element('p',matched?.outputMeaning&& !matched.outputMeaning.startsWith('Interpret real output')?matched.outputMeaning:'Identify the specific value requested by the objective. A simulated observation is not proof of broader system security or real-world execution.'));
+  d.append(element('h4','Limitations'),element('p',matched?.mistake||'The output is synthetic and limited to this exercise. Real systems may behave differently.'));
+  panel.append(d);
+ }
+ solution.after(panel);
+}
 function renderTasks(){const wrap=$('clTasks');wrap.replaceChildren();const p=store(),passed=tasks.filter(t=>p[t.id]?.passed).length;
  $('clProgress').textContent=passed+' / '+tasks.length+' practical challenges passed on this device';
  tasks.forEach(t=>{const card=element('article',undefined,'card cl-task');card.append(element('span',t.domain,'eyebrow'),element('h3',t.title),element('p',t.objective));
