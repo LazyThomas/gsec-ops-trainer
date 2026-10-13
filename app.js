@@ -92,6 +92,14 @@ function submitAnswer(){const s=state.session;if(!s)return;if(s.mode==='timed'&&
  const r={choice:selected,confidence};s.responses[s.index]=r;if(!isExam())record(BYID.get(s.ids[s.index]),r);save();$('notice').classList.add('hidden');renderQuestion();
 }
 function feedback(q,r){const ok=r.choice===q.answer;const f=$('feedback');f.textContent=(ok?'Correct.':'Incorrect. Correct answer: '+q.choices[q.answer])+ '\n\n'+q.why+'\n\nIndex cue: '+q.indexCues.join(' · ')+'\nBook-section cue: '+q.bookCue.section+' · '+q.bookCue.topic+' (verify in your edition)';f.className='feedback'+(ok?'':' bad');
+ if(q.kind==='lab' && typeof GSEC_COMMAND_LESSONS!=='undefined'){
+  const lesson=GSEC_COMMAND_LESSONS[q.id.split('-')[1]];
+  if(lesson){const details=document.createElement('details');const summary=document.createElement('summary');summary.textContent='Explain the command (expand)';details.append(summary);
+   const pre=document.createElement('pre');pre.textContent=lesson.command;details.append(pre);
+   [['Command and options',lesson.meaning],['Expected behavior',lesson.expected],['Common mistake',lesson.mistake]].forEach(([heading,body])=>{const h=document.createElement('strong');h.textContent=heading;const p=document.createElement('p');p.textContent=body;details.append(h,p);});f.append(details);
+  }
+ }
+
  document.querySelectorAll('#choices button').forEach((b,i)=>{const c=state.session.orders[state.session.index][i];b.classList.toggle('correct',c===q.answer);b.classList.toggle('wrong',c===r.choice&&!ok);});$('notePanel').classList.remove('hidden');$('indexNote').value=state.notes[q.id]||'';$('noteStatus').textContent='';
 }
 function next(){const s=state.session;if(!s)return;if(!isExam()&&!s.responses[s.index])return;if(s.index===s.ids.length-1){if(isExam()){$('examNav').scrollIntoView({behavior:'smooth'});return;}return finish();}s.index++;save();renderQuestion();}
