@@ -82,7 +82,7 @@ function revealAnswer(){if(!current)return;usedReveal=true;const evidence=curren
   d.append(element('summary',command));
   const matched=library.find(l=>normalize(l.command)===normalize(command));
   d.append(element('h4','Full command'),element('pre',command));
-  const parts=command.match(/(?:[^\\s"']+|"[^"]*"|'[^']*')+/g)||[];
+  const parts=command.match(/(?:[^\s"']+|"[^"]*"|'[^']*')+/g)||[];
   const basics={
    'nmap':'Network Mapper: scans explicitly authorized targets.','-sT':'TCP connect scan; uses the operating system TCP connection API.','-Pn':'Skip host-discovery probes and treat the target as online.','-n':'Disable DNS resolution.','-sV':'Probe open ports for service/version information.','-p':'Select the specified ports.',
    'ss':'Inspect local sockets.','-l':'Show listening sockets.','-t':'Restrict to TCP sockets.','-u':'Restrict to UDP sockets.','-a':'Show all sockets.','-r':'Read from a saved input where supported; meaning depends on the tool.','-nn':'Suppress both address and service-name resolution in tcpdump.','-i':'Select an interface in tcpdump; ignore case in grep.','-w':'Write packet capture to a file in tcpdump.','-c':'Stop after a specified packet count in tcpdump.',
