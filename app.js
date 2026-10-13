@@ -124,12 +124,28 @@ function commandDetails(lesson){
  }
  return d;
 }
+function outputChallenge(lesson){
+ if(!lesson.sampleOutput||lesson.sampleOutput.startsWith('No simulated'))return null;
+ const box=el('div',undefined,'output-challenge');box.append(el('h4','Interpret the output — self-check'));
+ box.append(el('p','Before revealing the explanation, identify what this output demonstrates and what it does not prove.'));
+ box.append(el('pre',lesson.sampleOutput));
+ const reveal=el('details');reveal.append(el('summary','Reveal interpretation'),el('p',lesson.outputMeaning));box.append(reveal);return box;
+}
+function allCommandLessons(){
+ const entries=Object.values(GSEC_COMMAND_LESSONS);
+ const seen=new Set(entries.map(x=>x.command.toLowerCase()));
+ for(const q of QUESTIONS.filter(x=>x.kind==='command')){
+  const command=q.choices[q.answer];if(seen.has(command.toLowerCase()))continue;seen.add(command.toLowerCase());
+  entries.push({command,section:q.section,lab:'Command drill',meaning:q.why,expected:'Run only in an authorized practice environment. Compare the resulting evidence with the stated task.',mistake:'Do not infer more from the output than the command actually establishes.',sampleOutput:'No simulated output authored for this command yet.',outputMeaning:'Consult the command help and interpret actual output in your lab; this entry does not claim an execution result.'});
+ }
+ return entries;
+}
 function commandLibrary(){
  show('commands');const term=$('commandSearch').value.trim().toLowerCase();const sec=$('commandSection').value;
- const lessons=Object.values(GSEC_COMMAND_LESSONS).filter(l=>(sec==='all'||l.section===sec)&&[l.lab,l.command,l.meaning,l.expected,l.mistake,l.outputMeaning].join(' ').toLowerCase().includes(term));
+ const lessons=allCommandLessons().filter(l=>(sec==='all'||l.section===sec)&&[l.lab,l.command,l.meaning,l.expected,l.mistake,l.outputMeaning].join(' ').toLowerCase().includes(term));
  $('commandCount').textContent=lessons.length+' command examples · Simulated output is illustrative, not a real lab result.';
  const box=clear('commandResults');
- for(const l of lessons){const card=el('article',undefined,'card command-card');card.append(el('span',l.section+' · Lab '+l.lab,'eyebrow'),el('h3',l.command));card.append(commandDetails(l));box.append(card);}
+ for(const l of lessons){const card=el('article',undefined,'card command-card');card.append(el('span',l.section+' · Lab '+l.lab,'eyebrow'),el('h3',l.command));const challenge=outputChallenge(l);if(challenge)card.append(challenge);card.append(commandDetails(l));box.append(card);}
 }
 function exportData(){const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});const a=el('a');const url=URL.createObjectURL(blob);a.href=url;a.download='gsec_ops_trainer_v03_progress.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
 async function importData(event){const file=event.target.files[0];if(!file)return;try{if(file.size>5000000)throw Error('File is too large');const incoming=clean(JSON.parse(await file.text()));if(!confirm('Replace v0.3 progress and the saved session with this backup? Export your current progress first if needed.'))return;state=incoming;storageBlocked=false;save();home();notice('Progress imported.');tick();}catch(e){notice('Import rejected: '+e.message+'. Existing progress was kept.');}finally{event.target.value='';}}
