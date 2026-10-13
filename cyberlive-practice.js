@@ -115,6 +115,8 @@ function revealAnswer(){if(!current)return;usedReveal=true;const evidence=curren
   d.append(element('h4','Simulated output'),element('pre',simulatedOutput));
   d.append(element('h4','What to look for'),element('p',matched?.outputMeaning&& !matched.outputMeaning.startsWith('Interpret real output')?matched.outputMeaning:'Identify the specific value requested by the objective. A simulated observation is not proof of broader system security or real-world execution.'));
   d.append(element('h4','Limitations'),element('p',matched?.mistake||'The output is synthetic and limited to this exercise. Real systems may behave differently.'));
+  const reference=typeof gsecCommandReference==='function'?gsecCommandReference(command):null;
+  if(reference){const link=element('a','Learn more — official command documentation (internet required)');link.href=reference;link.target='_blank';link.rel='noopener noreferrer';d.append(link);}
   panel.append(d);
  }
  solution.after(panel);
