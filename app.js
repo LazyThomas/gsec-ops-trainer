@@ -125,6 +125,8 @@ function commandDetails(lesson){
  for(const [heading,value] of [['Syntax and purpose',lesson.meaning],['Expected behavior',lesson.expected],['Illustrative terminal output — simulated, not executed',lesson.sampleOutput],['How to interpret the output',lesson.outputMeaning],['Common mistake',lesson.mistake]]){
   d.append(el('h4',heading));d.append(heading.startsWith('Illustrative')?el('pre',value):el('p',value));
  }
+ const reference=typeof gsecCommandReference==='function'?gsecCommandReference(lesson.command):null;
+ if(reference){const a=el('a','Learn more — official command documentation (internet required)');a.href=reference;a.target='_blank';a.rel='noopener noreferrer';d.append(a);}
  return d;
 }
 function outputChallenge(lesson){
