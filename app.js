@@ -92,8 +92,8 @@ function submitAnswer(){const s=state.session;if(!s)return;if(s.mode==='timed'&&
  const r={choice:selected,confidence};s.responses[s.index]=r;if(!isExam())record(BYID.get(s.ids[s.index]),r);save();$('notice').classList.add('hidden');renderQuestion();
 }
 function feedback(q,r){const ok=r.choice===q.answer;const f=$('feedback');f.textContent=(ok?'Correct.':'Incorrect. Correct answer: '+q.choices[q.answer])+ '\n\n'+q.why+'\n\nIndex cue: '+q.indexCues.join(' · ')+'\nBook-section cue: '+q.bookCue.section+' · '+q.bookCue.topic+' (verify in your edition)';f.className='feedback'+(ok?'':' bad');
- if(q.kind==='lab' && typeof GSEC_COMMAND_LESSONS!=='undefined'){
-  const lesson=GSEC_COMMAND_LESSONS[q.id.split('-')[1]];
+ if((q.kind==='lab'||q.kind==='command') && typeof GSEC_COMMAND_LESSONS!=='undefined'){
+  const lesson=q.kind==='lab'?GSEC_COMMAND_LESSONS[q.id.split('-')[1]]:allCommandLessons().find(l=>l.command.toLowerCase()===String(q.choices[q.answer]).toLowerCase());
   if(lesson)f.append(commandDetails(lesson));
  }
 
