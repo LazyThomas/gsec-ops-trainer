@@ -126,10 +126,14 @@ function commandDetails(lesson){
 }
 function outputChallenge(lesson){
  if(!lesson.sampleOutput||lesson.sampleOutput.startsWith('No simulated'))return null;
- const box=el('div',undefined,'output-challenge');box.append(el('h4','Interpret the output — self-check'));
- box.append(el('p','Before revealing the explanation, identify what this output demonstrates and what it does not prove.'));
+ const box=el('div',undefined,'output-challenge');box.append(el('h4','Interpret the output — practice question'));
+ box.append(el('p','Which interpretation is justified by the simulated output?'));
  box.append(el('pre',lesson.sampleOutput));
- const reveal=el('details');reveal.append(el('summary','Reveal interpretation'),el('p',lesson.outputMeaning));box.append(reveal);return box;
+ const choices=[lesson.outputMeaning,'The output proves the host or file is completely secure.','The output establishes that all possible security issues have been ruled out.'];
+ const correct=lesson.command.length%3;const ordered=[...choices.slice(1)];ordered.splice(correct,0,choices[0]);
+ const buttons=el('div',undefined,'output-options');const feedback=el('p');feedback.setAttribute('role','status');
+ ordered.forEach((option,i)=>{const b=el('button',option);b.onclick=()=>{feedback.textContent=i===correct?'Correct — this is the supported interpretation.':'Not quite. Distinguish observed evidence from unsupported conclusions.';feedback.className=i===correct?'correct-text':'wrong-text';};buttons.append(b);});
+ box.append(buttons,feedback);const reveal=el('details');reveal.append(el('summary','Show explanation'),el('p',lesson.outputMeaning));box.append(reveal);return box;
 }
 function allCommandLessons(){
  const entries=Object.values(GSEC_COMMAND_LESSONS);
