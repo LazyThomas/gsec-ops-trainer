@@ -136,13 +136,13 @@ function outputChallenge(lesson){
  box.append(buttons,feedback);const reveal=el('details');reveal.append(el('summary','Show explanation'),el('p',lesson.outputMeaning));box.append(reveal);return box;
 }
 function allCommandLessons(){
- const entries=Object.values(GSEC_COMMAND_LESSONS);
- const seen=new Set(entries.map(x=>x.command.toLowerCase()));
+ const entries=[...Object.values(GSEC_COMMAND_LESSONS),...(typeof GSEC_EXTRA_COMMANDS!=='undefined'?GSEC_EXTRA_COMMANDS:[])];
+ const seen=new Set();const unique=[];for(const entry of entries){const key=entry.command.toLowerCase();if(!seen.has(key)){seen.add(key);unique.push(entry);}}
  for(const q of QUESTIONS.filter(x=>x.kind==='command')){
   const command=q.choices[q.answer];if(seen.has(command.toLowerCase()))continue;seen.add(command.toLowerCase());
-  entries.push({command,section:q.section,lab:'Command drill',meaning:q.why,expected:'Run only in an authorized practice environment. Compare the resulting evidence with the stated task.',mistake:'Do not infer more from the output than the command actually establishes.',sampleOutput:'No simulated output authored for this command yet.',outputMeaning:'Consult the command help and interpret actual output in your lab; this entry does not claim an execution result.'});
+  unique.push({command,section:q.section,lab:'Command drill',meaning:q.why,expected:'Run only in an authorized practice environment. Compare the resulting evidence with the stated task.',mistake:'Do not infer more from the output than the command actually establishes.',sampleOutput:'No simulated output authored for this command yet.',outputMeaning:'Consult the command help and interpret actual output in your lab; this entry does not claim an execution result.'});
  }
- return entries;
+ return unique;
 }
 function commandLibrary(){
  show('commands');const term=$('commandSearch').value.trim().toLowerCase();const sec=$('commandSection').value;
