@@ -40,7 +40,7 @@ function weighted(pool,n){return pool.map(q=>{const d=state.domains[q.domain];co
 function balanced(n){const result=[];const secs=shuffle(Object.keys(SECTIONS));secs.forEach((sec,i)=>result.push(...shuffle(QUESTIONS.filter(q=>q.section===sec)).slice(0,Math.floor(n/6)+(i<n%6?1:0))));return shuffle(result);}
 function el(tag,text,cls){const e=document.createElement(tag);if(text!==undefined)e.textContent=text;if(cls)e.className=cls;return e;}
 function clear(id){$(id).replaceChildren();return $(id);}
-function show(id){for(const s of ['home','labs','library','game','result'])$(s).classList.toggle('hidden',s!==id);window.scrollTo(0,0);}
+function show(id){for(const s of ['home','labs','library','commands','game','result'])$(s).classList.toggle('hidden',s!==id);window.scrollTo(0,0);}
 function stat(box,label,value){const d=el('div',undefined,'stat');d.append(el('span',label,'muted tiny'),el('strong',String(value)));box.append(d);}
 function table(container,headers,rows){const t=el('table');const head=el('thead');const tr=el('tr');headers.forEach(h=>tr.append(el('th',h)));head.append(tr);const body=el('tbody');for(const row of rows){const r=el('tr');row.forEach(v=>r.append(el('td',String(v))));body.append(r);}t.append(head,body);container.append(t);}
 function dashboard(){
@@ -94,10 +94,7 @@ function submitAnswer(){const s=state.session;if(!s)return;if(s.mode==='timed'&&
 function feedback(q,r){const ok=r.choice===q.answer;const f=$('feedback');f.textContent=(ok?'Correct.':'Incorrect. Correct answer: '+q.choices[q.answer])+ '\n\n'+q.why+'\n\nIndex cue: '+q.indexCues.join(' · ')+'\nBook-section cue: '+q.bookCue.section+' · '+q.bookCue.topic+' (verify in your edition)';f.className='feedback'+(ok?'':' bad');
  if(q.kind==='lab' && typeof GSEC_COMMAND_LESSONS!=='undefined'){
   const lesson=GSEC_COMMAND_LESSONS[q.id.split('-')[1]];
-  if(lesson){const details=document.createElement('details');const summary=document.createElement('summary');summary.textContent='Explain the command (expand)';details.append(summary);
-   const pre=document.createElement('pre');pre.textContent=lesson.command;details.append(pre);
-   [['Command and options',lesson.meaning],['Expected behavior',lesson.expected],['Common mistake',lesson.mistake]].forEach(([heading,body])=>{const h=document.createElement('strong');h.textContent=heading;const p=document.createElement('p');p.textContent=body;details.append(h,p);});f.append(details);
-  }
+  if(lesson)f.append(commandDetails(lesson));
  }
 
  document.querySelectorAll('#choices button').forEach((b,i)=>{const c=state.session.orders[state.session.index][i];b.classList.toggle('correct',c===q.answer);b.classList.toggle('wrong',c===r.choice&&!ok);});$('notePanel').classList.remove('hidden');$('indexNote').value=state.notes[q.id]||'';$('noteStatus').textContent='';
@@ -118,6 +115,22 @@ function renderResult(r){show('result');const box=clear('resultStats');stat(box,
 function tick(){const s=state?.session;if(s?.mode==='timed'){const remaining=s.deadline-Date.now();if(remaining<=0){finish(true);return;}const secs=Math.ceil(remaining/1000);$('timer').textContent=[Math.floor(secs/3600),Math.floor(secs/60)%60,secs%60].map(n=>String(n).padStart(2,'0')).join(':');}else $('timer').textContent='';}
 function missions(){show('labs');const box=clear('missionList');LABS.forEach(l=>{const c=el('article',undefined,'card');c.append(el('span',l.section,'eyebrow'),el('h3',l.title),el('p',l.steps.length+' steps · Best: '+(state.labStats[l.lab]?.best||0)+'%'));const b=el('button','Start mission');b.onclick=()=>start('mission',l);c.append(b);box.append(c);});}
 function library(){show('library');const term=$('search').value.trim().toLowerCase(),sec=$('librarySection').value;const hits=ALL.filter(q=>(sec==='all'||q.section===sec)&&[q.q,q.domain,...q.indexCues,...q.choices].join(' ').toLowerCase().includes(term));$('searchCount').textContent=hits.length+' matches · showing '+Math.min(libraryLimit,hits.length)+'. Answers are visible here for reference.';const box=clear('searchResults');hits.slice(0,libraryLimit).forEach(q=>box.append(reviewCard(q,null,false)));$('moreResults').classList.toggle('hidden',hits.length<=libraryLimit);}
+function commandDetails(lesson){
+ const d=el('details');d.className='command-lesson';
+ d.append(el('summary','Expand command explanation'));
+ const code=el('pre',lesson.command);d.append(code);
+ for(const [heading,value] of [['Syntax and purpose',lesson.meaning],['Expected behavior',lesson.expected],['Illustrative terminal output — simulated, not executed',lesson.sampleOutput],['How to interpret the output',lesson.outputMeaning],['Common mistake',lesson.mistake]]){
+  d.append(el('h4',heading));d.append(heading.startsWith('Illustrative')?el('pre',value):el('p',value));
+ }
+ return d;
+}
+function commandLibrary(){
+ show('commands');const term=$('commandSearch').value.trim().toLowerCase();const sec=$('commandSection').value;
+ const lessons=Object.values(GSEC_COMMAND_LESSONS).filter(l=>(sec==='all'||l.section===sec)&&[l.lab,l.command,l.meaning,l.expected,l.mistake,l.outputMeaning].join(' ').toLowerCase().includes(term));
+ $('commandCount').textContent=lessons.length+' command examples · Simulated output is illustrative, not a real lab result.';
+ const box=clear('commandResults');
+ for(const l of lessons){const card=el('article',undefined,'card command-card');card.append(el('span',l.section+' · Lab '+l.lab,'eyebrow'),el('h3',l.command));card.append(commandDetails(l));box.append(card);}
+}
 function exportData(){const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});const a=el('a');const url=URL.createObjectURL(blob);a.href=url;a.download='gsec_ops_trainer_v03_progress.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
 async function importData(event){const file=event.target.files[0];if(!file)return;try{if(file.size>5000000)throw Error('File is too large');const incoming=clean(JSON.parse(await file.text()));if(!confirm('Replace v0.3 progress and the saved session with this backup? Export your current progress first if needed.'))return;state=incoming;storageBlocked=false;save();home();notice('Progress imported.');tick();}catch(e){notice('Import rejected: '+e.message+'. Existing progress was kept.');}finally{event.target.value='';}}
 async function offline(){if(!('serviceWorker' in navigator)){$('offlineStatus').textContent='Offline installation unavailable in this browser';return;}try{const reg=await navigator.serviceWorker.register('./service-worker.js');await navigator.serviceWorker.ready;$('offlineStatus').textContent='Ready for offline use';let refreshed=false;navigator.serviceWorker.addEventListener('controllerchange',()=>{if(!refreshed){refreshed=true;notice('An app update is ready. Save your session and reload to use the latest build.');}});reg.update().catch(()=>{});}catch(e){$('offlineStatus').textContent='Offline setup failed; online practice available';}}
@@ -127,6 +140,7 @@ async function boot(){try{
  $('questionCount').textContent=QUESTIONS.length;$('labCount').textContent=LABS.length+' missions · '+LABS.flatMap(l=>l.steps).length+' lab steps';
  for(const [key,name] of Object.entries(SECTIONS)){for(const target of ['sectionSelect','librarySection']){const o=el('option',key+' · '+name);o.value=key;$(target).append(o);}}
  document.querySelectorAll('[data-mode]').forEach(b=>b.onclick=()=>start(b.dataset.mode));document.querySelectorAll('.homeButton').forEach(b=>b.onclick=home);$('homeLink').onclick=e=>{e.preventDefault();home();};
+ $('commandsButton').onclick=commandLibrary;$('commandSearch').oninput=commandLibrary;$('commandSection').onchange=commandLibrary;
  $('labsButton').onclick=missions;$('browseButton').onclick=library;$('resumeButton').onclick=renderQuestion;$('leaveButton').onclick=()=>{save();home();};$('answerButton').onclick=submitAnswer;$('nextButton').onclick=next;
  $('prevButton').onclick=()=>{if(state.session.index>0){state.session.index--;save();renderQuestion();}};
  $('flagButton').onclick=()=>{const s=state.session;s.flags=s.flags.includes(s.index)?s.flags.filter(i=>i!==s.index):[...s.flags,s.index];save();renderQuestion();};$('finishButton').onclick=()=>finish();
